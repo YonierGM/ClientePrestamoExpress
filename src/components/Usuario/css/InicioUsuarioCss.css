@@ -1,0 +1,22 @@
+.contenedorUsuario
+{
+    height: 100vh;
+    margin: 0;
+    padding: auto;
+}
+
+.imgPerfil{
+    max-width: 10% ;
+    height: 5%;
+}
+
+#BarraLatela
+{
+    display: flex;
+    width: auto;
+}
+
+.imgUsuario
+{
+    max-width: 45px;
+}
