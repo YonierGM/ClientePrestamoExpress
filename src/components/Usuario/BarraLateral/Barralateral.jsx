@@ -17,7 +17,7 @@ const BarraLateral = (Props) =>
         <Link to = "/usuario/productos"className="text-light selecccionBarra btn">
                 <img src={imgProducto} className="imgUsuario" /> Productos
         </Link>
-        <Link className="text-light selecccionBarra btn" >
+        <Link to = '/usuario/historialPrestamos' className="text-light selecccionBarra btn" >
                 <img src={imgHistorial} className="imgUsuario" /> Historial
         </Link>
    </div>

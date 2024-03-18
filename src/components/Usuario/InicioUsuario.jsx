@@ -1,9 +1,11 @@
-import React, { useState }  from "react";
-import { BrowserRouter,Routes, Route } from 'react-router-dom';
+import React, { useState }   from "react";
+import { Routes, Route } from 'react-router-dom';
 
 //Comoponentes
 import Resumen from "./contenido/UsuarioResumen";
 import SolicitudPrestamo from "./contenido/SolicitudPrestamoUsuario";
+import Historial from "./contenido/HistorialUsuario";
+
 //Imagenes
 import imgPerfil from './BarraLateral/img/usuario-de-perfil.png'
 import imgSolicitud from './BarraLateral/img/dinero.png'
@@ -11,12 +13,14 @@ import imgProducto from './BarraLateral/img/Productos.png'
 import imgHistorial from './BarraLateral/img/reloj.png'
 import BarraLateral from "./BarraLateral/Barralateral";
 import Perfil from "./BarraLateral/Perfil";
+
 //Estilos
 import "./css/InicioUsuarioCss.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Productos from "./contenido/UsuraioProductos";
 
-const InicioUsuario = () => {
+const InicioUsuario = (Props) => {
+
     const [showOffcanvas, setShowOffcanvas] = useState(false);
   
     const handleToggleOffcanvas = () => {
@@ -25,6 +29,7 @@ const InicioUsuario = () => {
     const handleToggleOncanvas = () => {
       setShowOffcanvas(true);
     };
+    
   return (
     <div id="BarraLatela" className="contenedorUsuario container-fluid ">
       <div className="row w-100 h-100 d-flex">
@@ -54,11 +59,12 @@ const InicioUsuario = () => {
             </div>
           </div>
         </div>
-        <div className="col-10 d-flex justify-content-center">
+        <div className="col-10 d-flex justify-content-center ">
           <Routes>
-            <Route path="/" element={<Resumen />} />
-            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo />}/>
+            <Route path="/" element={<Resumen  id='1'/>} />
+            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id='3'/>}/>
             <Route path='/productos' element={<Productos/>}/>
+            <Route path='/historialPrestamos' element={<Historial/>}/>
           </Routes>
         </div>
       </div>
