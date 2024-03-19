@@ -1,0 +1,136 @@
+.CardComponent-peticion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.CardContent-peticion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    background: #7B96D4;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, .3);
+
+    padding: 10px;
+    gap: 1px;
+
+    cursor: pointer;
+    transition: .3s all ease;
+}
+
+.CardContent-peticion:hover{
+    filter: saturate(1.3);
+}
+
+.HeaderCardComponent-peticion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HeaderCardComponent-peticion h1{
+    font-size: 1.5rem;
+}
+
+.HeaderCardComponent-peticion span{
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.HeaderCardComponent-peticion .Details-peticiones{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.HeaderCardComponent-peticion .Details-peticiones p{
+    font-size: .9rem;
+}
+
+.MainContent-peticion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.CardHeader-peticion{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.CardHeader-peticion .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    transition: .3s all ease;
+}
+
+.CardHeader-peticion .avatar:hover{
+    opacity: .8;
+}
+
+.CardHeader-peticion .avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.CardHeader-peticion svg{
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    background: rgb(255, 255, 255);
+    border-radius: 20%;
+}
+
+.CardHeader-peticion p{
+    color: rgb(255, 255, 255);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.CardBody-peticion{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.CardBody-peticion .TituloItem-peticion{
+    color: white;
+    font-size: 1.2rem;
+}
+
+.CardBody-peticion .tipo-peticion, .valor-peticion{
+    color: white;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.CardBody-peticion .valor-peticion{
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.CardFooter-peticion{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+
+    color: white;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.CardFooter-peticion p, svg{
+    cursor: pointer;
+}
