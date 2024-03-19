@@ -1,12 +1,16 @@
 import React from "react";
 import "./PrestamosAdministrador.css";
 
+import { Routes, Route } from "react-router-dom";
+
 import { MenuLateralAdmin } from "../MenuLateralAdmin/MenuLateralAdmin";
 import { HeaderAdmin } from "../HeaderAdmin/HeaderAdmin";
 import { CardInfo } from "../CardInfo/CardInfo";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'    
-import { faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import SolicitudPrestamo from "../../Usuario/contenido/SolicitudPrestamoUsuario";
+import DashboardAdmin from "../Dashboard/DashboardAdmin";
 
 export const PrestamosAdministrador = () => {
   const Prestamo = [
@@ -86,29 +90,30 @@ export const PrestamosAdministrador = () => {
                   </div>
                 </div>
                 <div className="cards">
-                        
-                
-                {item.estado.map((item2, index) => (
-
-                <>
-                    {
-                      <CardInfo
-                        name={item.name}
-                        price={item.price}
-                        nameEstado={item2.nameEstado}
-                        users={item2.users}
-                      />
-                    }
-                </>
-            
-                ))}
+                  {item.estado.map((item2, index) => (
+                    <>
+                      {
+                        <CardInfo
+                          name={item.name}
+                          price={item.price}
+                          nameEstado={item2.nameEstado}
+                          users={item2.users}
+                        />
+                      }
+                    </>
+                  ))}
                 </div>
-
               </div>
             ))}
           </article>
         </div>
       </div>
+
+      <Routes>
+        <Route path="/dashboard" element={<DashboardAdmin />} />
+        <Route path="/prestamos" element={<PrestamosAdministrador />} />
+        <Route path="/solicitud" element={<SolicitudPrestamo />} />
+      </Routes>
     </div>
   );
 };

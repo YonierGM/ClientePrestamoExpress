@@ -15,11 +15,16 @@ function App() {
     <div>
       <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/usuario" element={<InicioUsuario/>} />
+          
           <Route path="/Administrador/prestamos" element={<PrestamosAdministrador/>} />
           <Route path="/Administrador/solicitudes" element={<Solicitudes/>} />
           <Route path="/Administrador/dashboard" element={<DashboardAdmin/>} />
+          
           <Route path="/usuario/historial" element={<HistorialUsuario/>} />
+
+          <Route path="/usuario/*" element={<InicioUsuario id='1'/>} />
+          <Route path="/administrador/*" element={<PrestamosAdministrador/>} />
+
         </Routes>
     </div>
     </BrowserRouter>

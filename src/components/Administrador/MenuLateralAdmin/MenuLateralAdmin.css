@@ -55,6 +55,7 @@ ul li a{
     color: white !important;
     padding: 0px 20px 0px 20px;
     transition: .5 all ease;
+    text-decoration: none;
 }
 
 ul li a:hover{

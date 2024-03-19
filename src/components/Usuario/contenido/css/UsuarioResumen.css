@@ -1,0 +1,16 @@
+.TituloResumen
+{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+.TextoPerfilUsuario{
+    font-size: 25px;
+}
+
+.imagendefondo
+{
+    background-image: url('../img/fondoUsuario.jpeg');
+}
