@@ -1,6 +1,9 @@
 import React, {useState,useEffect} from "react";
 import axios from "axios";
-
+import './css/deudausuario.css'
+import telefono from "./img/llamada-telefonica.png"
+import email from "./img/correo-electronico-vacio.png"
+import ubicacion from "./img/ubicacion.png"
 const Formulario = (Props) =>
 {
     //Peticiones Get
@@ -64,7 +67,6 @@ const Formulario = (Props) =>
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
         formData.valorcuota = formData.monto / formData.cuotas;
         console.log(formData)
         guadardatosform(formData);
@@ -74,23 +76,43 @@ const Formulario = (Props) =>
         return <p>Elementos</p>;
       }
     return(
-        <div className="mt-4">
-        <h1>Solicitud de Préstamo</h1>
-        <form className="card p-4 bg-primary" onSubmit={handleSubmit}>
-            <label htmlFor="tipoPrestamo" className="form-label text-light">Tipos de Préstamos</label>
-            <select id="tipoPrestamo" className="form-select" aria-label="Default select example" onChange={seleccionadorOpciones} >
-                {
-                    roles['Roles'].map((item, index) => (
-                        <option key={item.tipoprestamoid} data-key={item.tipoprestamoid}>{item.descripcion}</option>
-                    ))
-                }
-            </select>
-            <label htmlFor="monto" className="form-label text-light">Ingrese la cantidad del préstamo</label>
-            <input type="number" className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
-            <label htmlFor="cuotas" className="form-label text-light">Ingrese a cuantas cuotas lo vas a pagar</label>
-            <input type="number" min={0} max={12} className="form-control" id="cuotas" onChange={CambioTexto} value={formData.cuotas}></input>
-            <button className="mt-4 btn btn-info">Enviar Solicitud</button>
-        </form>
+        <div className="m-4 d-flex justify-content-center row  ">
+            <div className="col-6 ">
+                <h5>PrestamoExpress</h5>  
+                <h1> Solicita tu prestamo</h1>
+                <p><strong>Préstamos rápidos y confiables:</strong> <br/> solicita ahora y obtén el dinero que necesitas sin complicaciones.</p>
+                <div className="d-flex  align-items-center"> 
+                    <img src={telefono}  className="iconosUsuario border rounded-circle bg-warning" />
+                    <p className="PerfilNombre mt-3"> 000-000-0000</p>
+                </div>
+                <div className="d-flex  align-items-center"> 
+                    <img src={email}  className="iconosUsuario border rounded-circle bg-warning" />
+                    <p className="PerfilNombre mt-3"> PrestamoExpress@pexpress.com</p>
+                </div>
+                <div className="d-flex  align-items-center"> 
+                    <img src={ubicacion}  className="iconosUsuario border rounded-circle bg-warning" />
+                    <p className="PerfilNombre mt-3"> Colombia</p>
+                </div>
+            </div>
+        
+        <div className="col-6 mt-4">
+            <form className="card p-4 bg-primary" onSubmit={handleSubmit}>
+                <label htmlFor="tipoPrestamo" className="form-label text-light">Tipos de Préstamos</label>
+                <select id="tipoPrestamo" className="form-select" aria-label="Default select example" onChange={seleccionadorOpciones} >
+                    {
+                        roles['Roles'].map((item, index) => (
+                            <option key={item.tipoprestamoid} data-key={item.tipoprestamoid}>{item.descripcion}</option>
+                        ))
+                    }
+                </select>
+                <label htmlFor="monto" className="form-label text-light">Ingrese la cantidad del préstamo</label>
+                <input type="number" className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
+                <label htmlFor="cuotas" className="form-label text-light">Ingrese a cuantas cuotas lo vas a pagar</label>
+                <input type="number" min={0} max={12} className="form-control" id="cuotas" onChange={CambioTexto} value={formData.cuotas}></input>
+                <button className="mt-4 btn btn-info">Enviar Solicitud</button>
+            </form>   
+        </div>
+        
     </div>
     )  
 }

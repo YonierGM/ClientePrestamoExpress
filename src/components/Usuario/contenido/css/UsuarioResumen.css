@@ -9,3 +9,8 @@
 .TextoPerfilUsuario{
     font-size: 25px;
 }
+
+.imagendefondo
+{
+    background-image: url('../img/fondoUsuario.jpeg');
+}

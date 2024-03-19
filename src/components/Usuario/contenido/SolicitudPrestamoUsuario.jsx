@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import Formulario from "./SolicitudPrestamoUsuario/Formulario";
+import Deudausuario from "./SolicitudPrestamoUsuario/DeudaUsuario";
 const SolicitudPrestamo = (Props) =>
 {
     let deuda = null
@@ -25,15 +26,21 @@ const SolicitudPrestamo = (Props) =>
    
     if(prestamo)
     {
-        deuda = prestamo['prestamo'].length === 0;
+        deuda = false;
+        prestamo['prestamo'].map(item =>{
+            if(item.estadoid === 1)
+            {
+                deuda = true
+            }
+        })
     }
    
-        if(deuda)
+        if(!deuda)
         {
-           return <Formulario id={Props.id}/>
+            return(<Deudausuario/>)
         }else
         {
-            return(<>Tienes dueda</>)
+            return <Formulario id={Props.id}/>
         }
         
 }

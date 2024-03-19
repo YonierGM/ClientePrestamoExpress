@@ -23,11 +23,11 @@ const Resumen = (Props) => {
   console.log(data);
   return (
     <>
-    <div className="d-flex flex-column">
-       <h1 className="TituloResumen"> Bienvenido {data[0]["nombre"]} </h1>
-      <div className="card text-dark bg-light mb-3 ">
+    <div className="d-flex flex-column ">
+      <h1 className="TituloResumen border border-info bg-info rounded-pill"> Bienvenido {data[0]["nombre"]} </h1>
+      <div className="card text-dark mb-3 ">
         <div className="card-header bg-primary"><h2 className="card-title text-light"> Datos Personales</h2></div>
-        <div className="card-body bg-secondary">
+        <div className="card-body bg-info">
           <p className="card-text">
            <p className="TextoPerfilUsuario "><strong>Nombre completo: </strong> {data[0]['nombre']} {data[0]['apellido']}</p>  
             <p className="TextoPerfilUsuario"><strong>Region: </strong> {data[0]['direccion']} </p>

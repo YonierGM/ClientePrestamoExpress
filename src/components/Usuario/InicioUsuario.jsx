@@ -16,6 +16,7 @@ import Perfil from "./BarraLateral/Perfil";
 
 //Estilos
 import "./css/InicioUsuarioCss.css";
+import './contenido/css/UsuarioResumen.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Productos from "./contenido/UsuraioProductos";
 
@@ -51,7 +52,7 @@ const InicioUsuario = (Props) => {
           <div className={`offcanvas offcanvas-start ${showOffcanvas ? "show" : ""}`} tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" onMouseLeave={handleToggleOffcanvas}>
             <div className="offcanvas-header bg-primary">
               <h5 className="offcanvas-title " id="staticBackdropLabel">
-                <Perfil name="Ricardo"/>
+                <Perfil name="Perfil"/>
               </h5>
             </div>
             <div className="offcanvas-body bg-primary">
@@ -59,12 +60,12 @@ const InicioUsuario = (Props) => {
             </div>
           </div>
         </div>
-        <div className="col-10 d-flex justify-content-center ">
+        <div className="col-10 d-flex justify-content-center">
           <Routes>
-            <Route path="/" element={<Resumen  id='1'/>} />
-            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id='3'/>}/>
-            <Route path='/productos' element={<Productos/>}/>
-            <Route path='/historialPrestamos' element={<Historial/>}/>
+            <Route  path="/" element={<Resumen  id={Props.id}/>} />
+            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={Props.id}/>}/>
+            <Route path='/pagoprestamo' element={<Productos id={Props.id}/>}/>
+            <Route path='/historialPrestamos' element={<Historial id={Props.id}/>}/>
           </Routes>
         </div>
       </div>
