@@ -10,7 +10,7 @@
     font-size: 25px;
 }
 
-.imagendefondo
+.bg-informacion
 {
-    background-image: url('../img/fondoUsuario.jpeg');
+    background-color: rgba(120, 162, 238, 0.63);
 }

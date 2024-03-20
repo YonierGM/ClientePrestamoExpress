@@ -23,5 +23,8 @@
 
 .bg-fondo
 {
-    background-color: rgba(0, 132, 255, 0.692);
+    background-image: url('../img/Fondos.webp');
+    background-repeat:  no-repeat;
+    background-size: cover;
+    background-position: right;
 }

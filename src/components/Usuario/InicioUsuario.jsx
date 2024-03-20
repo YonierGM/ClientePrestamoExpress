@@ -5,7 +5,6 @@ import { Routes, Route } from 'react-router-dom';
 import Resumen from "./contenido/UsuarioResumen";
 import SolicitudPrestamo from "./contenido/SolicitudPrestamoUsuario";
 import Historial from "./contenido/HistorialUsuario";
-
 //Imagenes
 import imgPerfil from './BarraLateral/img/usuario-de-perfil.png'
 import imgSolicitud from './BarraLateral/img/dinero.png'
@@ -32,7 +31,7 @@ const InicioUsuario = (Props) => {
     };
     
   return (
-    <div id="BarraLatela" className="contenedorUsuario container-fluid ">
+    <div id="BarraLatela" className="contenedorUsuario container-fluid bg-fondo">
       <div className="row w-100 h-100 d-flex">
         <div className="col-1 bg-primary " onMouseEnter={handleToggleOncanvas} >
           <div id="ContenidoIconos" className="d-flex flex-column d-flex align-items-center"> 
@@ -60,7 +59,7 @@ const InicioUsuario = (Props) => {
             </div>
           </div>
         </div>
-        <div className="col-10 d-flex justify-content-center">
+        <div className="col-11 justify-content-center">
           <Routes>
             <Route  path="/" element={<Resumen  id={Props.id}/>} />
             <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={Props.id}/>}/>

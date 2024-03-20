@@ -23,7 +23,6 @@ const SolicitudPrestamo = (Props) =>
     },[]);
 
 
-   
     if(prestamo)
     {
         deuda = false;
@@ -32,10 +31,12 @@ const SolicitudPrestamo = (Props) =>
             {
                 deuda = true
             }
+            console.log(item.estadoid)
         })
+        
     }
    
-        if(!deuda)
+        if(deuda)
         {
             return(<Deudausuario/>)
         }else

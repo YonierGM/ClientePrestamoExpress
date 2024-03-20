@@ -1,0 +1,10 @@
+.headerHistorial
+{
+    width: 100vh;
+    background-color: aqua;
+}
+
+.cardTamano
+{
+    max-height: 250px;
+}

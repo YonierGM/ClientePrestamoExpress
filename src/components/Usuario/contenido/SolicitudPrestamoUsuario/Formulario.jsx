@@ -36,15 +36,22 @@ const Formulario = (Props) =>
     
         return `${año}-${mes}-${dia}`;
     };
-
+    const obtenerFechaFinal = () => {
+        const fechaActual = new Date();
+        const dia = String(fechaActual.getDate()).padStart(2, '0'); // Obtén el día y agrega un 0 si es necesario para que tenga dos dígitos
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtén el mes y agrega un 0 si es necesario para que tenga dos dígitos
+        const año = fechaActual.getFullYear(); // Obtiene el año (cuatro dígitos)
+    
+        return `${año}-${mes}-${dia}`;
+    };
     const [formData, setFormData] = useState({
         idcliente: Props.id,
-        tipoPrestamo: '',
+        tipoPrestamo: '1',
         monto: '',
         cuotas: '',
         valorcuota: '',
         fechaPrestamo: obtenerFechaActual(),
-        fechaestimadapago: obtenerFechaActual()
+        fechaestimadapago: ''
     })
     const seleccionadorOpciones = (e) => {
         const { id, value } = e.target;
@@ -67,7 +74,9 @@ const Formulario = (Props) =>
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         formData.valorcuota = formData.monto / formData.cuotas;
+        formData.fechaestimadapago = obtenerFechaFinal()
         console.log(formData)
         guadardatosform(formData);
     };
@@ -76,22 +85,22 @@ const Formulario = (Props) =>
         return <p>Elementos</p>;
       }
     return(
-        <div className="m-4 d-flex justify-content-center row  ">
+        <div className="m-4 d-flex justify-content-center  row bg-info p-4 rounded h-75">
             <div className="col-6 ">
                 <h5>PrestamoExpress</h5>  
                 <h1> Solicita tu prestamo</h1>
                 <p><strong>Préstamos rápidos y confiables:</strong> <br/> solicita ahora y obtén el dinero que necesitas sin complicaciones.</p>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center mt-4"> 
                     <img src={telefono}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> 000-000-0000</p>
+                    <p className="PerfilNombre "> 000-000-0000</p>
                 </div>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center  mt-3"> 
                     <img src={email}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> PrestamoExpress@pexpress.com</p>
+                    <p className="PerfilNombre "> PrestamoExpress@pexpress.com</p>
                 </div>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center  mt-3"> 
                     <img src={ubicacion}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> Colombia</p>
+                    <p className="PerfilNombre "> Colombia</p>
                 </div>
             </div>
         

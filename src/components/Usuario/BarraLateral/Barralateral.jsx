@@ -15,7 +15,7 @@ const BarraLateral = (Props) =>
                 <img src={imgSolicitud} className="imgUsuario" /> Solicitud de Prestamo 
         </Link >
         <Link to = "/usuario/pagoprestamo"className="text-light selecccionBarra btn">
-                <img src={imgProducto} className="imgUsuario" /> Productos
+                <img src={imgProducto} className="imgUsuario" /> Forma de pago
         </Link>
         <Link to = '/usuario/historialPrestamos' className="text-light selecccionBarra btn" >
                 <img src={imgHistorial} className="imgUsuario" /> Historial
