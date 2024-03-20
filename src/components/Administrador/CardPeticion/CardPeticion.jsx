@@ -10,28 +10,28 @@ export function CardPeticion({name, avatar, tipo, valor})
         
         <section className="CardComponent-peticion">
 
-        <div className='CardContent-peticion'>
-            <div className="MainContent-peticion">
-                <div className="CardHeader-peticion">
-                    <div className="avatar">
-                        <img src={avatar} alt="Avatar Cliente" />
+            <div className='CardContent-peticion'>
+                <div className="MainContent-peticion">
+                    <div className="CardHeader-peticion">
+                        <div className="avatar">
+                            <img src={avatar} alt="Avatar Cliente" />
+                        </div>
+                        <p className="NameTipo">{name}</p>
                     </div>
-                    <p className="NameTipo">{name}</p>
+                    <div className="CardBody-peticion">
+                        <p className="TituloItem-peticion">Resumen</p>
+                        <p className="tipo-peticion">{tipo}</p>
+                        <p className="valor-peticion">{valor}</p>
+                    </div>
                 </div>
-                <div className="CardBody-peticion">
-                    <p className="TituloItem-peticion">Resumen</p>
-                    <p className="tipo-peticion">{tipo}</p>
-                    <p className="valor-peticion">{valor}</p>
+                <div className="CardFooter-peticion">
+                    <p className="More-peticion">More</p>
+                    <FontAwesomeIcon className="More-peticion" icon={ faArrowAltCircleRight} />
                 </div>
-            </div>
-            <div className="CardFooter-peticion">
-                <p className="More-peticion">More</p>
-                <FontAwesomeIcon className="More-peticion" icon={ faArrowAltCircleRight} />
-            </div>
 
-        </div>
+            </div>
         </section>
-    ) 
+    )
 };
 
 export default CardPeticion

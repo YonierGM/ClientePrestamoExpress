@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'    
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 import './CardInfo.css'

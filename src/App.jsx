@@ -22,7 +22,7 @@ function App() {
           
           <Route path="/usuario/historial" element={<HistorialUsuario/>} />
 
-          <Route path="/usuario/*" element={<InicioUsuario id='2'/>} />
+          <Route path="/usuario/*" element={<InicioUsuario id='1'/>} />
           <Route path="/administrador/*" element={<PrestamosAdministrador/>} />
 
         </Routes>
