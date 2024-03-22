@@ -74,7 +74,7 @@ const Formulario = (Props) =>
     };
 
     const handleSubmit = async (e) => {
-        formData.valorcuota = formData.monto / formData.cuotas;
+        formData.valorcuota = Math.ceil(parseInt(formData.monto) / parseInt(formData.cuotas));
         formData.fechaestimadapago = obtenerFechaFinal()
         console.log(formData)
         guadardatosform(formData);

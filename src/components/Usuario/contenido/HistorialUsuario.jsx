@@ -46,7 +46,7 @@ const Historial = (Props) => {
   }
   function EstadoprestamoEstilo(numero)
   {
-    let estiloconstante = " card cardTamano text-white col-4 m-1 "
+    let estiloconstante = "  text-white "
     return numero == 1 ? "bg-primary" + estiloconstante : (numero == 2 ? "bg-success" +estiloconstante : " bg-Warning" +estiloconstante)
   }
   function Roles(rol)
@@ -59,28 +59,41 @@ const Historial = (Props) => {
     }))
   }
   return (
-    <div className="card text-dark bg-transparent mt-3 h-75 overflow-auto">
-      <div className="card-header text-light bg-primary">
-       <h1 className="text-center">Histotial de prestamos</h1> 
-      </div>
-      <div className="card-body d-flex justify-content-center">
-        <div className="d-flex row w-100">
-          {prestamo['prestamo'].map(item =>(
-            <div className={EstadoprestamoEstilo(item.estadoid)}>
-              <div className="card-header "><h2>{Estadoprestamo(item.estadoid)}</h2></div>
-              <div className="card-body">
-                <h5 className="card-title"> {Roles(item.tipoprestamoid)}</h5>
-                <p className="card-text">
-                  <strong>Monto :</strong> {item.monto} <br/> 
-                  <strong>Cuotas:</strong> {item.cuotas} <br/> 
-                  <strong>Fecha de inicio:</strong> {item.fechaprestamo} <br/> 
-                  <strong>Fecha de finalizacion:</strong> {item.fechaestimadapago} <br/> </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="d-flex flex-column justify-content-center align-items-center h-100">
+      <h2 className="text-center text-light tituloHisotialUsuario bg-secondary w-100">Historial</h2>
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th className="col">Estado</th>
+            <th className="col">Inicio</th>
+            <th className="col">Finalizacion</th>
+            <th className="col">Monto</th>
+            <th className="col">Cuotas</th>
+            <th className="col">Valor cuota</th>
+            <th className="col">Catogoria</th>
+          </tr>
+         
+        </thead> 
+        <tbody>
+            
+              {prestamo['prestamo'].map((item,index) =>
+              (
+                <tr key = {index} >
+                <td className={EstadoprestamoEstilo(item.estadoid)}>{Estadoprestamo(item.estadoid)}</td>
+                <td>{item.fechaprestamo}</td>
+                <td>{item.fechaestimadapago}</td>
+                <td>{item.monto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                <td>{item.cuotas}</td>
+                <td>{item.valorcuota.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                <td>{Roles(item.tipoprestamoid)}</td>
+                </tr> 
+              ))}
+            
+         </tbody>
+      </table>
     </div>
+      
+
   );
 };
 

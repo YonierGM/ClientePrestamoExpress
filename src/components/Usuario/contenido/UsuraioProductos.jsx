@@ -13,7 +13,7 @@ const Productos = (Props) => {
     const [prestamo, setPrestamo] = useState(null);
 
     const urlprestamo = "http://127.0.0.1:8000/prestamo/" + Props.id;
-
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -92,8 +92,8 @@ const Productos = (Props) => {
                 <div className="col-6 mt-4">
                     <form className="card p-4 bg-primary text-light" onSubmit={submit}>
                         <h1 className=""> Pagar Prestamo </h1>
-                        <h4 className="text-dark">Prestamo de {prestamoActivo.monto}</h4>
-                        <h4 className="text-dark">Couta recomendada {prestamoActivo.valorcuota}</h4>
+                        <h4>Prestamo de {prestamoActivo.monto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
+                        <h4>Couta Asignada es {prestamoActivo.valorcuota.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
                         <label htmlFor="monto" className="form-label text-light">Ingrese el monto</label>
                         <input type="number" min={0} max={prestamoActivo.monto} className="form-control" id="monto" onChange={cambioTexto}></input>
                         <button className="mt-4 btn btn-info">Pagar</button>
@@ -111,7 +111,7 @@ const Productos = (Props) => {
                         Puedes solicitar un nuevo préstamo.<br/>
                         Presiona el botón aquí abajo.
                     </h5>
-                    <Link to='/usuario/solicitudprestamo' className="btn btn-primary w-10"> Solicitar Préstamo</Link> 
+                    <Link to='/usuario/solicitudprestamo' className="btn btn-primary"> Solicitar Préstamo</Link> 
                 </div>
             </div>
         );

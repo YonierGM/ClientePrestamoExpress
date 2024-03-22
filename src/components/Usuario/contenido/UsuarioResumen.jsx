@@ -25,7 +25,7 @@ const Resumen = (Props) => {
     <>
     <div className="d-flex flex-column justify-content-center align-items-center ">
       <div className="col-6">
-      <h1 className="TituloResumen border border-primary bg-primary rounded-pill"> Bienvenido {data[0]["nombre"]} </h1>
+      <h1 className="TituloResumen  border border-primary bg-primary rounded-pill"> Bienvenido {data[0]["nombre"]} </h1>
       <div className="card text-dark mb-3 bg-transparent">
         <div className="card-header bg-primary "><h2 className="card-title text-light"> Datos Personales</h2></div>
         <div className="card-body  bg-informacion ">
