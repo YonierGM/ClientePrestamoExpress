@@ -74,7 +74,6 @@ const Formulario = (Props) =>
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
         formData.valorcuota = formData.monto / formData.cuotas;
         formData.fechaestimadapago = obtenerFechaFinal()
         console.log(formData)
@@ -85,7 +84,7 @@ const Formulario = (Props) =>
         return <p>Elementos</p>;
       }
     return(
-        <div className="m-4 d-flex justify-content-center  row bg-info p-4 rounded h-75">
+    <div className="m-4 d-flex justify-content-center  row bg-info p-4 rounded h-75">
             <div className="col-6 ">
                 <h5>PrestamoExpress</h5>  
                 <h1> Solicita tu prestamo</h1>
@@ -115,7 +114,7 @@ const Formulario = (Props) =>
                     }
                 </select>
                 <label htmlFor="monto" className="form-label text-light">Ingrese la cantidad del préstamo</label>
-                <input type="number" className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
+                <input type="number" min={0} className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
                 <label htmlFor="cuotas" className="form-label text-light">Ingrese a cuantas cuotas lo vas a pagar</label>
                 <input type="number" min={0} max={12} className="form-control" id="cuotas" onChange={CambioTexto} value={formData.cuotas}></input>
                 <button className="mt-4 btn btn-info">Enviar Solicitud</button>
