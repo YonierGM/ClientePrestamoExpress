@@ -92,7 +92,6 @@ const Productos = (Props) => {
     const prestamoActivo = prestamo['prestamo'].find(item => item.estadoid === 1);
     function submit(e)
     {
-        e.preventDefault();
         botonPago = true
         console.log(formData)
         guadarPago(formData)
