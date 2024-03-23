@@ -46,8 +46,8 @@ const Historial = (Props) => {
   }
   function EstadoprestamoEstilo(numero)
   {
-    let estiloconstante = "  text-white "
-    return numero == 1 ? "bg-primary" + estiloconstante : (numero == 2 ? "bg-success" +estiloconstante : " bg-Warning" +estiloconstante)
+    let estiloconstante = "text-center text-white border border-success rounded-pill"
+    return numero == 1 ? "bg-primary " + estiloconstante : (numero == 2 ? "bg-success " + estiloconstante : " bg-Warning " + estiloconstante)
   }
   function Roles(rol)
   {
@@ -61,7 +61,7 @@ const Historial = (Props) => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center h-100">
       <h2 className="text-center text-light tituloHisotialUsuario bg-secondary w-100">Historial</h2>
-      <table className="table table-hover">
+      <table className="table mytable table-hover table-borderless">
         <thead>
           <tr>
             <th className="col">Estado</th>
@@ -79,7 +79,7 @@ const Historial = (Props) => {
               {prestamo['prestamo'].map((item,index) =>
               (
                 <tr key = {index} >
-                <td className={EstadoprestamoEstilo(item.estadoid)}>{Estadoprestamo(item.estadoid)}</td>
+                <td > <p className={EstadoprestamoEstilo(item.estadoid)}>{Estadoprestamo(item.estadoid)}</p></td>
                 <td>{item.fechaprestamo}</td>
                 <td>{item.fechaestimadapago}</td>
                 <td>{item.monto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>

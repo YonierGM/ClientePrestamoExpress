@@ -10,10 +10,11 @@ const Productos = (Props) => {
         fechapago:'',
     });
     let repuesta = ''
+    const [mensaje, setMensaje] = useState("")
     const [prestamo, setPrestamo] = useState(null);
-
-    const urlprestamo = "http://127.0.0.1:8000/prestamo/" + Props.id;
     
+    const urlprestamo = "http://127.0.0.1:8000/prestamo/" + Props.id;
+    let botonPago = false
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -53,6 +54,17 @@ const Productos = (Props) => {
           }
           console.log(Datos)
         repuesta = await axios.put(urlPago,Datos)
+        console.log(repuesta.data)
+        
+        if(repuesta.status == 200)
+        {
+            if(repuesta.data === "Prestamo Finalizado")
+            {
+                window.location.reload(); 
+            }
+            setMensaje("pago exito") 
+            console.log(repuesta)
+        }
     }
 
     const obtenerFechaActual = () => {
@@ -76,11 +88,12 @@ const Productos = (Props) => {
     if (prestamo === null) {
         return (<>Cargando...</>);
     }
-
+    
     const prestamoActivo = prestamo['prestamo'].find(item => item.estadoid === 1);
-    RevisarDeuda()
     function submit(e)
     {
+        e.preventDefault();
+        botonPago = true
         console.log(formData)
         guadarPago(formData)
         RevisarDeuda()
@@ -96,8 +109,8 @@ const Productos = (Props) => {
                         <h4>Couta Asignada es {prestamoActivo.valorcuota.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
                         <label htmlFor="monto" className="form-label text-light">Ingrese el monto</label>
                         <input type="number" min={0} max={prestamoActivo.monto} className="form-control" id="monto" onChange={cambioTexto}></input>
-                        <button className="mt-4 btn btn-info">Pagar</button>
-                        <p className="text-ligth text-center">{repuesta}</p>
+                        <button className="mt-4 btn btn-info" disabled={botonPago}>Pagar</button>
+                        <p className="text-ligth text-center">{mensaje}</p>
                     </form>   
                 </div>
             </div>
