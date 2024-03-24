@@ -2,10 +2,6 @@ p{
     margin: 0 !important;
     padding: 0 !important;
 }
-.CardComponent{
-    display: flex;
-    flex-direction: column;
-}
 
 .CardContent{
     width: 100%;

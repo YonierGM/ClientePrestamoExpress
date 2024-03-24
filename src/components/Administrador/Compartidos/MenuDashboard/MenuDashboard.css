@@ -1,0 +1,36 @@
+
+.HeaderDashboard{
+    width: 100%;
+    background: #2134A0;
+    height: 60px;
+}
+
+.navDashboard{
+    height: 100%;
+}
+
+.ulDashboard, .liDashboard{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+}
+
+.liDashboard .enlaceDashboard{
+    height: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+
+    transition: .3s all ease;
+}
+
+.liDashboard .enlaceDashboard:hover{
+    background: rgb(255, 255, 255);
+    color: black !important;
+}

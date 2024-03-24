@@ -65,7 +65,7 @@ const InicioUsuario = (Props) => {
             <Route  path="/" element={<Resumen  id={Props.id}/>} />
             <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={Props.id}/>}/>
             <Route path='/pagoprestamo' element={<Productos id={Props.id}/>}/>
-            <Route path='/historialPrestamos' element={<Historial id={Props.id}/>}/>
+            <Route path='/historial' element={<Historial id={Props.id}/>}/>
           </Routes>
         </div>
       </div>

@@ -3,11 +3,12 @@
     padding: 0;
 }
 
+.adminContent{
+    padding: 30px 30px;
+}
+
 .AdminContent-main-peticiones{
     width: auto;
-    display: grid;
-
-    grid-template-areas: 'adminContent-menu';
 
     gap: 20px;
     padding: 10px 20px 30px 20px;
@@ -16,24 +17,16 @@
     border-radius: 30px;
 }
 
-.adminContent-menu{
-    grid-area: adminContent-menu;
-    width: 100%;
-    height: 100vh;
-
-    display: flex;
-    margin: 0;
-
-    background: rgb(21,38,139);
-}
-
 .AdminContent-home-peticiones{
-    justify-content: flex-start !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
     gap: 20px;
 }
 
 .HeaderAdmin{
-    padding: 0px 20px ;
+    padding: 0;
 }
 
 .CardInfo-peticiones{
