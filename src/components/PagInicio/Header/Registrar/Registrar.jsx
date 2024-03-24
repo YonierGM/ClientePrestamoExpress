@@ -1,7 +1,4 @@
 import React from "react"
-import imgEmail from '../../../../assets/email.png'
-import imgPassword from '../../../../assets/password.png'
-import imgPerson from '../../../../assets/person.png'
 import './Registrar.css'
 import { Link } from "react-router-dom"
 
@@ -44,11 +41,12 @@ const Registrar = () => {
                         <label htmlFor="password">Contraseña</label>
                         <input type="password" placeholder="Ingrese su contraseña" className="form-control"/>
                     </div>
-                    <div className="col-12">
-                        <button className="btn btn-primary">Crear Cuenta</button>
+        
+                    <div className="d-flex justify-content-center mt-5">
+                        <button className="btn btn-primary">Iniciar Sesión</button>
                     </div>
                     <p className="text-end mt-2">
-                        ¿Ya tiene una cuenta? - <Link to="/IniciarSesion" className="textInf">Iniciar Sesión</Link>
+                        ¿Ya tiene una cuenta? -<Link to="/IniciarSesion" className="ms-2 textInf">Iniciar Sesión</Link>
                     </p>
                 </form>
             </div>
