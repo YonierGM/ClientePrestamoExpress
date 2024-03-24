@@ -1,5 +1,5 @@
 .form_container2 {
-    width: 70%;
+    width: 50%;
     background-color: rgba(173, 173, 211, 0.5);
 }
 
@@ -19,7 +19,6 @@
     color: blue;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
+.registro{
+    font-family: sans-serif;
 }

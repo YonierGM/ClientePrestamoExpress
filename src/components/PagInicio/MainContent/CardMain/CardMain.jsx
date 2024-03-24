@@ -1,9 +1,9 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import logo from '../../../../assets/logo-banco.png';
-import "./CardHeader.css"
+import "./CardMain.css"
 
-const CardHeader = () => {
+const CardMain = () => {
   return (
     <div className='containerCards d-flex space-x-40'>
         <Card className="rounded-circle" style={{ width: '18rem', borderRadius: '40%', overflow: 'hidden' }}>
@@ -22,4 +22,4 @@ const CardHeader = () => {
   );
 }
 
-export default CardHeader
+export default CardMain

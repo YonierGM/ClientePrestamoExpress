@@ -1,5 +1,6 @@
 .form_container {
     width: 30%;
+    background-color: rgba(173, 173, 211, 0.5);
 }
 
 @media screen and (max-width: 1000px) {
@@ -12,4 +13,12 @@
     .form_container {
         width: 65%;
     }
+}
+
+.textInf:hover {
+    color: blue;
+}
+
+.registro{
+    font-family: sans-serif;
 }

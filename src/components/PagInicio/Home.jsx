@@ -1,11 +1,12 @@
 import React from "react";
 import Header  from "./Header/Header";
-import { Routes } from "react-router-dom";
+import MainContent from "./MainContent/MainContent";
 
 const Home = () => {
     return (
         <div className="homeContent">
-            <div className="headerInicio">{<Header />}</div>
+            <div className="headerInit">{<Header />}</div>
+            <div className="mainContent">{<MainContent />}</div>
         </div>
         
     )

@@ -1,8 +1,8 @@
 import React from "react";
-import CardHeader from "./CardHeader/CardHeader";
+import CardMain from "./CardMain/CardMain";
 
 
-const HeaderContent = () => {
+const MainContent = () => {
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
       <img
@@ -11,7 +11,7 @@ const HeaderContent = () => {
       />
       <div className="mx-auto max-w-7xl lg:px-8">
         
-        <div className="CardHeader ">{<CardHeader />}</div>
+        <div className="CardHeader ">{<CardMain />}</div>
         
         <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
@@ -26,4 +26,4 @@ const HeaderContent = () => {
   );
 }
 
-export default HeaderContent;
+export default MainContent;
