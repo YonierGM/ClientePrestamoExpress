@@ -8,7 +8,7 @@ const Formulario = (Props) =>
 {
     //Peticiones Get
     const [roles, setRoles] = useState(null);
-    const urlroles = "http://127.0.0.1:8000/roles";
+    const urlroles = "http://127.0.0.1:8000/tiposprestamo";
     useEffect(() => {
         (async () => {
             try {
@@ -23,35 +23,32 @@ const Formulario = (Props) =>
     
     const guadardatosform = (data) =>
     {
-        const urldata ='http://127.0.0.1:8000/prestamo'
+        const urldata ='http://127.0.0.1:8000/prestamos'
         axios.post(urldata,data)
     }
 
     //Funciones
     const obtenerFechaActual = () => {
         const fechaActual = new Date();
-        const dia = String(fechaActual.getDate()).padStart(2, '0'); // Obtén el día y agrega un 0 si es necesario para que tenga dos dígitos
-        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtén el mes y agrega un 0 si es necesario para que tenga dos dígitos
-        const año = fechaActual.getFullYear(); // Obtiene el año (cuatro dígitos)
-    
-        return `${año}-${mes}-${dia}`;
+        const fechaFormateada = fechaActual.toISOString().split('T')[0]; // Extraer la parte de la fecha
+        return fechaFormateada;
     };
-    const obtenerFechaFinal = () => {
+    const obtenerFechaFinal = (meses) => {
         const fechaActual = new Date();
-        const dia = String(fechaActual.getDate()).padStart(2, '0'); // Obtén el día y agrega un 0 si es necesario para que tenga dos dígitos
-        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtén el mes y agrega un 0 si es necesario para que tenga dos dígitos
-        const año = fechaActual.getFullYear(); // Obtiene el año (cuatro dígitos)
-    
-        return `${año}-${mes}-${dia}`;
+        fechaActual.setMonth(fechaActual.getMonth() + meses);
+        const fechaFormateada = fechaActual.toISOString().split('T')[0]; // Extraer la parte de la fecha
+        return fechaFormateada;
     };
     const [formData, setFormData] = useState({
-        idcliente: Props.id,
-        tipoPrestamo: '1',
-        monto: '',
-        cuotas: '',
-        valorcuota: '',
-        fechaPrestamo: obtenerFechaActual(),
-        fechaestimadapago: ''
+        prestamoid: 0,
+        fechaprestamo: obtenerFechaActual(),
+        fechaestimadapago: "2024-03-24",
+        monto: 0,
+        cuotas: 0,
+        valorcuota: 0,
+        clienteid: parseInt(Props.id),
+        estadoid: 1,
+        tipoprestamoid: 0
     })
     const seleccionadorOpciones = (e) => {
         const { id, value } = e.target;
@@ -61,7 +58,7 @@ const Formulario = (Props) =>
         setFormData(prevState => ({
             ...prevState,
             [id]: value, // Actualiza el valor de tipoPrestamo con el valor del select
-            tipoPrestamo: key // Además, podrías almacenar el valor de data-key en otro campo, si lo necesitas
+            tipoprestamoid: parseInt(key) // Además, podrías almacenar el valor de data-key en otro campo, si lo necesitas
         }));
     };
 
@@ -69,13 +66,15 @@ const Formulario = (Props) =>
         const { id, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [id]: value
+            [id]: parseInt(value)
         }));
     };
 
     const handleSubmit = async (e) => {
+       // e.preventDefault();
         formData.valorcuota = Math.ceil(parseInt(formData.monto) / parseInt(formData.cuotas));
-        formData.fechaestimadapago = obtenerFechaFinal()
+        formData.fechaestimadapago = obtenerFechaFinal(parseInt(formData.cuotas))
+        delete formData.tipoPrestamo
         console.log(formData)
         guadardatosform(formData);
     };
@@ -108,7 +107,7 @@ const Formulario = (Props) =>
                 <label htmlFor="tipoPrestamo" className="form-label text-light">Tipos de Préstamos</label>
                 <select id="tipoPrestamo" className="form-select" aria-label="Default select example" onChange={seleccionadorOpciones} >
                     {
-                        roles['Roles'].map((item, index) => (
+                        roles.map((item, index) => (
                             <option key={item.tipoprestamoid} data-key={item.tipoprestamoid}>{item.descripcion}</option>
                         ))
                     }

@@ -5,15 +5,17 @@ import axios from "axios";
 const Productos = (Props) => { 
 
     const [formData, setFormData] = useState({
+        pagoid: 0,
         prestamoid: '',
         monto: '',
         fechapago:'',
     });
     let repuesta = ''
     const [mensaje, setMensaje] = useState("")
+    const [deudafaltante, setDeudaFaltante] = useState(80)
     const [prestamo, setPrestamo] = useState(null);
     
-    const urlprestamo = "http://127.0.0.1:8000/prestamo/" + Props.id;
+    const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
     let botonPago = false
     useEffect(() => {
         const fetchData = async () => {
@@ -29,11 +31,11 @@ const Productos = (Props) => {
 
     useEffect(() => {
         if (prestamo) {
-            const prestamoActivo = prestamo['prestamo'].find(item => item.estadoid === 1);
+            const prestamoActivo = prestamo.find(item => item.estadoid === 1);
             if (prestamoActivo) {
                 setFormData(prevState => ({
                     ...prevState,
-                    prestamoid: prestamoActivo.prestamoid,
+                    prestamoid: parseInt(prestamoActivo.prestamoid) ,
                 }));
             }
         }
@@ -41,29 +43,32 @@ const Productos = (Props) => {
 
     async function guadarPago(data)
     {
-        const urlPago = 'http://127.0.0.1:8000/pago'
+        const urlPago = 'http://127.0.0.1:8000/pagos'
         repuesta = await axios.post(urlPago,data)
     }
 
     async function RevisarDeuda()
     {
-        const urlPago = 'http://127.0.0.1:8000/revisarDeuda'
-        let Datos = {
-            "prestamoid": parseInt(prestamoActivo.prestamoid),
-            "cliente": parseInt(Props.id)
-          }
-          console.log(Datos)
-        repuesta = await axios.put(urlPago,Datos)
-        console.log(repuesta.data)
-        
-        if(repuesta.status == 200)
+        const urlPago = 'http://127.0.0.1:8000/prestamopago/' + parseInt(prestamoActivo.prestamoid)
+        const facturas = await axios.get(urlPago)
+        if(facturas.status == 200)
         {
-            if(repuesta.data === "Prestamo Finalizado")
-            {
-                window.location.reload(); 
-            }
-            setMensaje("pago exito") 
-            console.log(repuesta)
+            let sumarmonto = 0
+           await facturas.data.map(item =>
+                {
+                    sumarmonto += item.monto
+                })
+            setDeudaFaltante(prestamoActivo.monto - sumarmonto)
+            
+        }
+        console.log(deudafaltante)
+        console.log(prestamoActivo)
+        if(deudafaltante <= 0)
+        {
+            const urlPrestamoCambio = "http://127.0.0.1:8000/prestamos/" + prestamoActivo.prestamoid
+            prestamoActivo.estadoid = 2
+            await axios.put(urlPrestamoCambio,prestamoActivo)
+            window.location.reload();
         }
     }
 
@@ -80,7 +85,7 @@ const Productos = (Props) => {
         const { id, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [id]: value,
+            [id]: parseInt(value) ,
             fechapago: obtenerFechaActual()
         }));
     };
@@ -89,9 +94,10 @@ const Productos = (Props) => {
         return (<>Cargando...</>);
     }
     
-    const prestamoActivo = prestamo['prestamo'].find(item => item.estadoid === 1);
+    const prestamoActivo = prestamo.find(item => item.estadoid === 1);
     function submit(e)
     {
+        e.preventDefault();
         botonPago = true
         console.log(formData)
         guadarPago(formData)
@@ -99,15 +105,17 @@ const Productos = (Props) => {
     }
     
     if (prestamoActivo !== undefined) {
+        RevisarDeuda()
         return (
             <div className="w-100 h-75 d-flex justify-content-center align-items-center">
                 <div className="col-6 mt-4">
                     <form className="card p-4 bg-primary text-light" onSubmit={submit}>
                         <h1 className=""> Pagar Prestamo </h1>
                         <h4>Prestamo de {prestamoActivo.monto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
+                        <h4>Deuda Faltante de {deudafaltante.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
                         <h4>Couta Asignada es {prestamoActivo.valorcuota.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</h4>
                         <label htmlFor="monto" className="form-label text-light">Ingrese el monto</label>
-                        <input type="number" min={0} max={prestamoActivo.monto} className="form-control" id="monto" onChange={cambioTexto}></input>
+                        <input type="number" min={0} max={deudafaltante} className="form-control" id="monto" onChange={cambioTexto}></input>
                         <button className="mt-4 btn btn-info" disabled={botonPago}>Pagar</button>
                         <p className="text-ligth text-center">{mensaje}</p>
                     </form>   

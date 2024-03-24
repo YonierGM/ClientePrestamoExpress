@@ -7,9 +7,9 @@ import "./css/HistorialUsuario.css";
 
 const Historial = (Props) => {
   const [prestamo, setPrestamo] = useState(null);
-  const urlprestamo = "http://127.0.0.1:8000/prestamo/" + Props.id;
+  const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
   const [roles, setRoles] = useState(null);
-  const urlroles = "http://127.0.0.1:8000/roles";
+  const urlroles = "http://127.0.0.1:8000/tiposprestamo";
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,19 +27,6 @@ const Historial = (Props) => {
   if (prestamo == null || roles == null) {
     return <p>no ha cargado</p>;
   }
-  const seleccionadorOpciones = (e) => {
-    const selectedOption = e.target.options[e.target.selectedIndex];
-    const key = selectedOption.getAttribute('data-key');
-    if(key !== null)
-    {
-      roles['Roles'].map(item =>{
-        if(item.tipoprestamoid == key)
-        {
-          
-        }
-      })
-    }
-};
   function Estadoprestamo(numero)
   {
     return numero == 1 ? "Activo" : (numero == 2 ? "Pagado" : "Mora")
@@ -51,7 +38,7 @@ const Historial = (Props) => {
   }
   function Roles(rol)
   {
-    return(roles['Roles'].map(item =>{
+    return(roles.map(item =>{
       if(item.tipoprestamoid == rol)
       {
         return item.descripcion
@@ -76,7 +63,7 @@ const Historial = (Props) => {
         </thead> 
         <tbody>
             
-              {prestamo['prestamo'].map((item,index) =>
+              {prestamo.map((item,index) =>
               (
                 <tr key = {index} >
                 <td > <p className={EstadoprestamoEstilo(item.estadoid)}>{Estadoprestamo(item.estadoid)}</p></td>

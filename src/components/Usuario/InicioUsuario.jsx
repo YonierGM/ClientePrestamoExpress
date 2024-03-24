@@ -23,10 +23,10 @@ const InicioUsuario = (Props) => {
 
     const [showOffcanvas, setShowOffcanvas] = useState(false);
   
-    const handleToggleOffcanvas = () => {
+    const handleToggleOffcanvas = (e) => {
       setShowOffcanvas(false);
     };
-    const handleToggleOncanvas = () => {
+    const handleToggleOncanvas = (e) => {
       setShowOffcanvas(true);
     };
     
@@ -61,7 +61,7 @@ const InicioUsuario = (Props) => {
         </div>
         <div className="col-11 justify-content-center">
           <Routes>
-            <Route  path="/" element={<Resumen  id={Props.id}/>} />
+            <Route path="/" element={<Resumen  id={Props.id}/>} />
             <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={Props.id}/>}/>
             <Route path='/pagoprestamo' element={<Productos id={Props.id}/>}/>
             <Route path='/historialPrestamos' element={<Historial id={Props.id}/>}/>
