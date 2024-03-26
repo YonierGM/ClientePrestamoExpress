@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 import './css/UsuarioResumen.css'
 import axios from "axios";
 const Resumen = (Props) => {
@@ -36,6 +37,7 @@ const Resumen = (Props) => {
             <p className="TextoPerfilUsuario"> <strong>Correo Electronico: </strong> {data['email']}</p>
             <p className="TextoPerfilUsuario"><strong>Celular: </strong> {data['celular']}</p> 
           </p>
+          <a href="/" className="btn btn-danger mt-3">Cerrar seccion</a>
         </div>
       </div> 
       </div>
