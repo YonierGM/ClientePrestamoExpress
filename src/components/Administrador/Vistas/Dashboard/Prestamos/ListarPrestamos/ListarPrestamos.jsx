@@ -7,7 +7,6 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 import { useNavigate } from "react-router-dom";
 
 import Notiflix from "notiflix";
@@ -42,9 +41,9 @@ export const ListarPrestamos = () => {
       });
   }, []);
 
-  const handleCreate = () =>{
+  const handleCreate = () => {
     navigate(`/administrador/dashboard/prestamos/crear`);
-  }
+  };
 
   const handleEditClick = (prestamoId) => {
     navigate(`/administrador/dashboard/prestamos/editar/${prestamoId}`);
@@ -105,9 +104,12 @@ export const ListarPrestamos = () => {
   return (
     <div className="AdminContent-main">
       <div className="RegistrosPrestamos">
+        <h2 className="h2">Administrar prestamos</h2>
         <div className="HeaderTable d-flex justify-content-between mb-2">
-
-          <button className="Create btn btn-success" onClick={() => handleCreate()}>
+          <button
+            className="Create btn btn-success"
+            onClick={() => handleCreate()}
+          >
             <FontAwesomeIcon className="icon" icon={faPlus} /> Nuevo prestamo
           </button>
           <div className="search d-flex gap-2">
@@ -115,8 +117,7 @@ export const ListarPrestamos = () => {
             <button className="btn btn-primary">
               <FontAwesomeIcon className="icon" icon={faMagnifyingGlass} />
             </button>
-          </div> 
-   
+          </div>
         </div>
         <hr />
         <table className="table mytable table-hover table-borderless">
@@ -132,55 +133,60 @@ export const ListarPrestamos = () => {
             </tr>
           </thead>
           <tbody>
-            {prestamos.map((item, index) => (
-              <tr key={index}>
-                <td>{item.nombre_cliente + " " + item.apellido_cliente}</td>
-                <td>$ {item.monto}</td>
-                <td>{item.fechaprestamo}</td>
-                <td>{item.fechaestimadapago}</td>
-                <td className="estado">
-                  <p
-                    className={
-                      item.descripcion_estadoPrestamo === "Pendiente"
-                        ? "Pendiente"
-                        : item.descripcion_estadoPrestamo === "Al dia"
-                        ? "Al-dia"
-                        : item.descripcion_estadoPrestamo === "Retrazo"
-                        ? "Retrazo"
-                        : item.descripcion_estadoPrestamo === "Pagado"
-                        ? "Pagado"
-                        : item.descripcion_estadoPrestamo === "Mora"
-                        ? "Mora"
-                        : ""
-                    }
-                  >
-                    {item.descripcion_estadoPrestamo}
-                  </p>
-                </td>
-                <td>{item.descripcion_tipoprestamo}</td>
-                <td className="d-flex gap-2">
-                  <button
-                    type="button"
-                    className="btn "
-                    onClick={() => handleEditClick(item.prestamoid)}
-                  >
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} />
-                  </button>
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => handleDeleteClick(item.prestamoid)}
-                  >
-                    <FontAwesomeIcon className="icon" icon={faTrash} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {prestamos
+              .filter((item) => item.descripcion_estadoPrestamo !== "Pendiente")
+              .map((item, index) => (
+                <tr key={index}>
+                  <td>{item.nombre_cliente + " " + item.apellido_cliente}</td>
+                  <td>$ {item.monto}</td>
+                  <td>{item.fechaprestamo}</td>
+                  <td>{item.fechaestimadapago}</td>
+                  <td className="estado">
+                    <p
+                      className={
+                        item.descripcion_estadoPrestamo === "Al dia"
+                          ? "Al-dia"
+                          : item.descripcion_estadoPrestamo === "Retrazo"
+                          ? "Retrazo"
+                          : item.descripcion_estadoPrestamo === "Pagado"
+                          ? "Pagado"
+                          : item.descripcion_estadoPrestamo === "Mora"
+                          ? "Mora"
+                          : ""
+                      }
+                    >
+                      {item.descripcion_estadoPrestamo}
+                    </p>
+                  </td>
+                  <td>{item.descripcion_tipoprestamo}</td>
+                  <td className="d-flex gap-2">
+                    <button
+                      type="button"
+                      className="btn "
+                      onClick={() => handleEditClick(item.prestamoid)}
+                    >
+                      <FontAwesomeIcon className="icon" icon={faPenToSquare} />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => handleDeleteClick(item.prestamoid)}
+                    >
+                      <FontAwesomeIcon className="icon" icon={faTrash} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
-        {prestamos.length < 1 && (
-          <span className="mensajeError">No hay coincidencias</span>
-        )}
+        {prestamos.length > 0 &&
+          prestamos.filter(
+            (item) => item.descripcion_estadoPrestamo !== "Pendiente"
+          ).length === 0 && (
+         
+            <span className="mensajeError">No hay coincidencias</span>
+        
+          )}
       </div>
     </div>
   );
