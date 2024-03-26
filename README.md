@@ -21,5 +21,6 @@ Cliente y administrador son los roles con los cuales se puede interactuar en la 
 
 <p>** Responsive login **</p>
 <p align= "center">
-  <img style="width:100%; height:100%;" src="https://github.com/YonierGM/recursos/blob/master/Desktop.png?raw=true"/>
+      
+  <img style="width:100%; height:100%;" src="https://github.com/YonierGM/imagenes-proyecto/blob/master/Lleno%20login.png?raw=true"/>
 </p>
