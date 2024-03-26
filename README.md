@@ -5,8 +5,8 @@ una vez descargado el proyecto, descargue los paquetes necesarios con el comando
 Levante el proyecto "npm run dev"
 
 important tener tambien ya corriendo el backend para poder acceder a los datos.  repo aquí: https://github.com/YonierGM/Backend-PrestamoExpress
-Dentro de la carpeta DB está un aql con el script de la base de datos
-      (Importante Utilizar los insert ya creados en el archivo, para ahorrar tiempo, conservar el orden y estructura de los datos)
+Dentro de la carpeta DB está un aql con el script de la base de datos. <br />
+      (Importante Utilizar los insert ya creados en el archivo, para ahorrar tiempo, conservar el orden y estructura de los datos) <br />
 Si realizó la inserción de los registros mediante el archivo sql ya mencionado, tendrá usuarios creados con los que puede ingresar a la plataforma
 
 Administrador:
