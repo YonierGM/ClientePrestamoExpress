@@ -4,31 +4,25 @@ import {
   faMagnifyingGlass,
   faPenToSquare,
   faTrash,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal, Button } from "react-bootstrap";
 
-import Notiflix from 'notiflix';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
+import { useNavigate } from "react-router-dom";
+
+import Notiflix from "notiflix";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
+
+import { Loading } from "notiflix/build/notiflix-loading-aio";
+
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 
 export const ListarPrestamos = () => {
+  const navigate = useNavigate();
   const [prestamos, setPrestamos] = useState([]);
-  const [prestamo, setPrestamo] = useState({});
-
-  const [showModal, setShowModal] = useState(false);
-
-  const [prestamoid, setPrestamoid] = useState();
-  const [fechaprestamo, setFechaprestamo] = useState("");
-  const [fechaestimadapago, setFechaestimadapago] = useState("");
-  const [monto, setMonto] = useState("");
-  const [cuotas, setCuotas] = useState("");
-  const [valorcuota, setValorcuota] = useState("");
-  const [clienteid, setClienteid] = useState("");
-  const [estadoid, setEstadoid] = useState("");
-  const [tipoprestamoid, setTipoprestamoid] = useState("");
 
   useEffect(() => {
-    Notiflix.Loading.standard();
+    Loading.standard();
 
     fetch("http://localhost:8000/prestamos")
       .then((response) => {
@@ -44,76 +38,16 @@ export const ListarPrestamos = () => {
         console.error("Error fetching loans:", error);
       })
       .finally(() => {
-        Notiflix.Loading.remove();
+        Loading.remove();
       });
   }, []);
 
+  const handleCreate = () =>{
+    navigate(`/administrador/dashboard/prestamos/crear`);
+  }
+
   const handleEditClick = (prestamoId) => {
-    fetch(`http://localhost:8000/prestamos/${prestamoId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch loan details");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPrestamo(data);
-
-        setPrestamoid(data.prestamoid);
-        setFechaprestamo(data.fechaprestamo);
-        setFechaestimadapago(data.fechaestimadapago);
-        setMonto(data.monto);
-        setCuotas(data.cuotas);
-        setValorcuota(data.valorcuota);
-        setClienteid(data.clienteid);
-        setEstadoid(data.estadoid);
-        setTipoprestamoid(data.tipoprestamoid);
-        setShowModal(true);
-      })
-      .catch((error) => {
-        console.error("Error fetching loan details:", error);
-      });
-  };
-
-  const handleEditSubmit = async (e) => {
-    Notiflix.Loading.standard();
-
-    console.log(prestamoid)
-    e.preventDefault();
-
-    const data = {
-      prestamoid,
-      fechaprestamo,
-      fechaestimadapago,
-      monto,
-      cuotas,
-      valorcuota,
-      clienteid,
-      estadoid,
-      tipoprestamoid
-    };
-
-    try {
-      const response = await fetch(`http://localhost:8000/prestamos/${prestamoid}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        Loading.remove();
-        Notify.failure("Error al crear administrador");
-        throw new Error("Error al crear administrador");
-      }
-      fetchPrestamos()
-      Loading.remove();
-      Notify.success("Prestamo actualizado exitosamente");
-    } catch (error) {
-      Loading.remove();
-      console.error("Error al crear administrador:", error);
-    }
-    setShowModal(false);
+    navigate(`/administrador/dashboard/prestamos/editar/${prestamoId}`);
   };
 
   const handleDeleteClick = (prestamoId) => {
@@ -133,10 +67,12 @@ export const ListarPrestamos = () => {
             return response.json();
           })
           .then((data) => {
+            Notify.success("Prestamo eliminado");
             console.log("Loan deleted successfully:", data);
             fetchPrestamos();
           })
           .catch((error) => {
+            Notify.failure("Error al eliminar");
             console.error("Error deleting loan:", error);
           });
       },
@@ -147,6 +83,7 @@ export const ListarPrestamos = () => {
   };
 
   const fetchPrestamos = () => {
+    Loading.standard();
     fetch("http://localhost:8000/prestamos")
       .then((response) => {
         if (!response.ok) {
@@ -159,17 +96,27 @@ export const ListarPrestamos = () => {
       })
       .catch((error) => {
         console.error("Error fetching loans:", error);
+      })
+      .finally(() => {
+        Loading.remove();
       });
   };
 
   return (
     <div className="AdminContent-main">
       <div className="RegistrosPrestamos">
-        <div className="search">
-          <input type="text" placeholder="Search Prestamo" />
-          <button className="btn btn-primary">
-            <FontAwesomeIcon className="icon" icon={faMagnifyingGlass} />
+        <div className="HeaderTable d-flex justify-content-between">
+
+          <button className="Create btn btn-success" onClick={() => handleCreate()}>
+            <FontAwesomeIcon className="icon" icon={faPlus} /> Nuevo prestamo
           </button>
+          <div className="search d-flex gap-2">
+            <input type="text" placeholder="Search Prestamo" />
+            <button className="btn btn-primary">
+              <FontAwesomeIcon className="icon" icon={faMagnifyingGlass} />
+            </button>
+          </div> 
+   
         </div>
         <hr />
         <table className="table mytable table-hover table-borderless">
@@ -181,6 +128,7 @@ export const ListarPrestamos = () => {
               <th>Fecha Pago</th>
               <th>Estado Pago</th>
               <th>Tipo</th>
+              <th>Opciones</th>
             </tr>
           </thead>
           <tbody>
@@ -195,8 +143,10 @@ export const ListarPrestamos = () => {
                     className={
                       item.descripcion_estadoPrestamo === "Pendiente"
                         ? "Pendiente"
-                        : item.descripcion_estadoPrestamo === "Activo"
-                        ? "Activo"
+                        : item.descripcion_estadoPrestamo === "Al dia"
+                        ? "Al-dia"
+                        : item.descripcion_estadoPrestamo === "Retrazo"
+                        ? "Retrazo"
                         : item.descripcion_estadoPrestamo === "Pagado"
                         ? "Pagado"
                         : item.descripcion_estadoPrestamo === "Mora"
@@ -208,23 +158,21 @@ export const ListarPrestamos = () => {
                   </p>
                 </td>
                 <td>{item.descripcion_tipoprestamo}</td>
-                <td>
-                  <div className="opciones">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => handleEditClick(item.prestamoid)}
-                    >
-                      <FontAwesomeIcon className="icon" icon={faPenToSquare} />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => handleDeleteClick(item.prestamoid)}
-                    >
-                      <FontAwesomeIcon className="icon" icon={faTrash} />
-                    </button>
-                  </div>
+                <td className="d-flex gap-2">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => handleEditClick(item.prestamoid)}
+                  >
+                    <FontAwesomeIcon className="icon" icon={faPenToSquare} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => handleDeleteClick(item.prestamoid)}
+                  >
+                    <FontAwesomeIcon className="icon" icon={faTrash} />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -234,114 +182,6 @@ export const ListarPrestamos = () => {
           <span className="mensajeError">No hay coincidencias</span>
         )}
       </div>
-
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Préstamo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleEditSubmit}>
-            {/* <div className="form-group">
-              <label htmlFor="fechaprestamo">Prestamo id</label>
-              <input
-                type="text"
-                className="form-control"
-                id="fechaprestamo"
-                value={prestamoid}
-                onChange={(e) => setFechaprestamo(e.target.value)}
-              />
-            </div> */}
-            <div className="form-group">
-              <label htmlFor="fechaprestamo">Fecha de Préstamo</label>
-              <input
-                type="text"
-                className="form-control"
-                id="fechaprestamo"
-                value={fechaprestamo}
-                onChange={(e) => setFechaprestamo(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="fechaestimadapago">Fecha Estimada de Pago</label>
-              <input
-                type="text"
-                className="form-control"
-                id="fechaestimadapago"
-                value={fechaestimadapago}
-                onChange={(e) => setFechaestimadapago(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="monto">Monto</label>
-              <input
-                type="text"
-                className="form-control"
-                id="monto"
-                value={monto}
-                onChange={(e) => setMonto(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="cuotas">Cuotas</label>
-              <input
-                type="text"
-                className="form-control"
-                id="cuotas"
-                value={cuotas}
-                onChange={(e) => setCuotas(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="valorcuotas">Valor de Cuotas</label>
-              <input
-                type="text"
-                className="form-control"
-                id="valorcuotas"
-                value={valorcuota}
-                onChange={(e) => setValorcuota(e.target.value)}
-              />
-            </div>
-            {/* <div className="form-group">
-              <label htmlFor="clienteid">ID del Cliente</label>
-              <input
-                type="text"
-                className="form-control"
-                id="clienteid"
-                value={clienteid}
-                onChange={(e) => setClienteid(e.target.value)}
-              />
-            </div> */}
-            {/* <div className="form-group">
-              <label htmlFor="estadoid">ID del Estado</label>
-              <input
-                type="text"
-                className="form-control"
-                id="estadoid"
-                value={estadoid}
-                onChange={(e) => setEstadoid(e.target.value)}
-              />
-            </div> */}
-            {/* <div className="form-group">
-              <label htmlFor="tipoprestamoid">ID del Tipo de Préstamo</label>
-              <input
-                type="text"
-                className="form-control"
-                id="tipoprestamoid"
-                value={tipoprestamoid}
-                onChange={(e) => setTipoprestamoid(e.target.value)}
-              />
-            </div> */}
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleEditSubmit}>
-            Guardar Cambios
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

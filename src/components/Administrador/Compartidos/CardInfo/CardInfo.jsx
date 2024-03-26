@@ -2,32 +2,20 @@ import React from "react";
 import "./CardInfo.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faClock,
-  faArrowAltCircleRight,
-} from "@fortawesome/free-regular-svg-icons";
+import { faArrowAltCircleRight, } from "@fortawesome/free-regular-svg-icons";
+import { faWallet } from "@fortawesome/free-solid-svg-icons";
 
-export function CardInfo({ nameEstado, users }) {
+export function CardInfo({ tipo, cantidad }) {
   return (
-    <div
-      className={
-        nameEstado == "Al dia"
-          ? "CardContent"
-          : "" || nameEstado == "Retrazo"
-          ? "Retrazo CardContent"
-          : "" || nameEstado == "Mora"
-          ? "Mora CardContent"
-          : ""
-      }
-    >
+    <div className="CardContent">
       <div className="MainContent">
         <div className="CardHeader">
-          <FontAwesomeIcon icon={faClock} />
-          <p className="NameTipo">{nameEstado}</p>
+          <FontAwesomeIcon icon={faWallet} />
+          <p className="NameTipo">{tipo}</p>
         </div>
         <div className="CardBody">
-          <p className="TituloItem">Usuarios</p>
-          <p className="NumeroUsuarios">{users}</p>
+          <p className="TituloItem">Cantidad de registros</p>
+          <p className="NumeroUsuarios">{cantidad}</p>
         </div>
       </div>
       <div className="CardFooter">

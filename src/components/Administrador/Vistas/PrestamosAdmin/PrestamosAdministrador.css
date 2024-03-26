@@ -14,13 +14,6 @@
     overflow-y: auto;
 }
 
-.CardInfo{
-    width: 100% !important;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
 .Tipo{
     display: flex;
     flex-direction: column;

@@ -21,11 +21,11 @@ export const MenuLateralAdmin = () => {
         <ul>
           <li>
             <FontAwesomeIcon className="icon" icon={faGauge} />
-            <Link to="/administrador/dashboard">Dashboard</Link>
+            <Link to="/administrador/dashboard/prestamos">Dashboard</Link>
           </li>
           <li>
             <FontAwesomeIcon className="icon" icon={faFile} />
-            <Link to="/administrador/prestamos">Prestamos</Link>
+            <Link to="/administrador/resumen">Resumen</Link>
           </li>
           <li>
             <FontAwesomeIcon className="icon" icon={faFileInvoice} />
@@ -38,7 +38,7 @@ export const MenuLateralAdmin = () => {
           {/* <li><FontAwesomeIcon className="icon" icon={faBell} /><a>Notificaciones</a></li> */}
           <li>
             <FontAwesomeIcon className="icon" icon={faRightFromBracket} />
-            <Link to="/administrador/prestamos">Logout</Link>
+            <Link to="/administrador/dashboard/prestamos">Logout</Link>
           </li>
         </ul>
       </nav>

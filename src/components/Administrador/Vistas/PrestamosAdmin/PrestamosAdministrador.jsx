@@ -1,188 +1,74 @@
 import React, { useState, useEffect } from "react";
-import "./PrestamosAdministrador.css";
+import HeaderAdmin from '../../Compartidos/HeaderAdmin/HeaderAdmin'
+import CardInfo from '../../../../components/Administrador/Compartidos/CardInfo/CardInfo'; // Asumiendo que CardInfo es un componente definido
 
-import { HeaderAdmin } from "../../Compartidos/HeaderAdmin/HeaderAdmin";
-import { CardInfo } from "../../Compartidos/CardInfo/CardInfo";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 
-export const PrestamosAdministrador = () => {
-
+const PrestamosAdministrador = () => {
   const [prestamos, setPrestamos] = useState([]);
-  const [clientes, setClientes] = useState([]);
-  const [error, setError] = useState(null);
+  const [tiposPrestamo, setTiposPrestamo] = useState([]);
 
   useEffect(() => {
+    Loading.standard();
     // Obtener datos de préstamos
-    fetch('http://localhost:8000/prestamos')
-      .then(response => {
+    fetch("http://localhost:8000/prestamos")
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch');
+          throw new Error("Failed to fetch");
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
+        // Actualizar el estado con los datos de préstamos
         setPrestamos(data);
+        // Procesar los préstamos para contar cuántos están al día, en retraso y en mora
+        let tipos = {};
+        data.forEach((prestamo) => {
+          // Contar la cantidad de préstamos por cada tipo
+          const tipoPrestamo = prestamo.descripcion_tipoprestamo;
+          tipos[tipoPrestamo] = tipos[tipoPrestamo] ? tipos[tipoPrestamo] + 1 : 1;
+        });
+        // Convertir el objeto en un array de objetos para facilitar su renderizado
+        const tiposArray = Object.keys(tipos).map((tipo) => ({
+          tipo: tipo,
+          cantidad: tipos[tipo],
+        }));
+        // Actualizar el estado con la información de los tipos de préstamo
+        setTiposPrestamo(tiposArray);
       })
-      .catch(error => {
-        setError(error.message);
-      });
-
-    // Obtener datos de clientes
-    fetch('http://localhost:8000/clientes')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
-        }
-        return response.json();
+      .catch((error) => {
+        console.error("Error fetching loans:", error);
       })
-      .then(data => {
-        setClientes(data);
-      })
-      .catch(error => {
-        setError(error.message);
+      .finally(() => {
+        Loading.remove();
       });
   }, []);
 
-  // Función para obtener el nombre del cliente por clienteid
-  const getNombreCliente = (clienteid) => {
-    const cliente = clientes.find(cliente => cliente.clienteid === clienteid);
-    return cliente ? cliente.nombre : 'Desconocido';
-  };
-
-
-  const [searchTipo, setSearchTipo] = useState(""); // Estado para almacenar la búsqueda
-  
-  let resultsPrestamo = []
-
-  const handleSearchTipoChange = (value) => {
-    setSearchTipo(value); // Actualiza el estado de búsqueda
-  };
-
-  const Prestamos = [
-    {
-      name: "Bronze",
-      price: "$500k - $3M",
-      estado: [
-        {
-          nameEstado: "Al dia",
-          users: 100,
-        },
-        {
-          nameEstado: "Retrazo",
-          users: 50,
-        },
-        {
-          nameEstado: "Mora",
-          users: 10,
-        },
-      ],
-    },
-    {
-      name: "Platino",
-      price: "$3M - $8M",
-      estado: [
-        {
-          nameEstado: "Al dia",
-          users: 100,
-        },
-        {
-          nameEstado: "Retrazo",
-          users: 50,
-        },
-        {
-          nameEstado: "Mora",
-          users: 10,
-        },
-      ],
-    },
-    {
-      name: "Gold",
-      price: "$8M - $20M",
-      estado: [
-        {
-          nameEstado: "Al dia",
-          users: 100,
-        },
-        {
-          nameEstado: "Retrazo",
-          users: 50,
-        },
-        {
-          nameEstado: "Mora",
-          users: 10,
-        },
-      ],
-    },
-  ];
-
-  resultsPrestamo = Prestamos.filter((dato) => {
-    if (searchTipo.length > 1) {
-      return dato.name
-      .toLowerCase()
-      .includes(searchTipo.toLowerCase());
-      
-    }else{
-      return resultsPrestamo = Prestamos
-    }
-
-  })
-
   return (
-    <div className="adminContent-home">
+    <div className="ContentMain">
+      <div className="AdminContent-main">
+      <div className="adminContent-home">
       <div className="HeaderAdmin">
-        {<HeaderAdmin onSearchChange={handleSearchTipoChange} />}
+        {/* {<HeaderAdmin />} */}
       </div>
-      <div className="">
-
       <div>
-      <h1>Listado de préstamos</h1>
-      {error && <p>{error}</p>}
-      <ul>
-        {prestamos.map(prestamo => (
-          <li key={prestamo.prestamoid}>
-            {getNombreCliente(prestamo.clienteid)} - {prestamo.monto}
-          </li>
-        ))}
-      </ul>
-    </div>
-    
-        <article className="CardInfo">
-          {resultsPrestamo.map((item, index) => (
-            <div className="Tipo" key={index}>
-              <div className="HeaderCardComponent">
-                <h1>
-                  {item.name} <span>( {item.price} )</span>
-                </h1>
+        <h1>Resumen prestamos</h1>
+      </div>
 
-                <div className="Details">
-                  <p>View Details</p>
-                  <FontAwesomeIcon icon={faCaretDown} />
-                </div>
-              </div>
-              <div className="cards">
-                {item.estado.map((item2, index) => (
-                  <div key={index}>
-                    {
-                      <CardInfo
-                        name={item.name}
-                        price={item.price}
-                        nameEstado={item2.nameEstado}
-                        users={item2.users}
-                      />
-                    }
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </article>
-        {resultsPrestamo.length < 1 || searchTipo.length < 0? (
-          <span className="mensajeError">No hay conincidencias</span>
-        ) : (
-          ""
-        )}
+      <article className="CardInfo d-flex justify-content-between gap-2 flex-wrap-wrap">
+        {tiposPrestamo.map((tipo, index) => (
+          <div className="Tipo w-100" key={index}>
+            {/* Aquí puedes agregar el componente CardInfo para mostrar información adicional */}
+            {/* Por ejemplo, puedes pasarle los datos del tipo de préstamo y la cantidad */}
+            <CardInfo tipo={tipo.tipo} cantidad={tipo.cantidad} />
+          </div>
+        ))}
+      </article>
+    </div>
+
       </div>
     </div>
   );

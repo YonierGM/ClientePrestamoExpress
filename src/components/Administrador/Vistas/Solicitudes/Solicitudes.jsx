@@ -1,86 +1,175 @@
 import React, { useState, useEffect } from "react";
-import "./Solicitudes.css";
-
-import { HeaderAdmin } from "../../Compartidos/HeaderAdmin/HeaderAdmin";
-import { CardPeticion } from "../../Compartidos/CardPeticion/CardPeticion";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faPenToSquare,
+  faTrash,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+
+import { useNavigate } from "react-router-dom";
+
+import { Notify } from "notiflix/build/notiflix-notify-aio";
+
+import { Loading } from "notiflix/build/notiflix-loading-aio";
+
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 
 export const Solicitudes = () => {
-  const [searchSolicitud, setSearchSolicitud] = useState(""); // Estado para almacenar la búsqueda
+  const navigate = useNavigate();
+  const [prestamos, setPrestamos] = useState([]);
 
-  const handleSearchSolicitudChange = (value) => {
-    setSearchSolicitud(value); // Actualiza el estado de búsqueda
+  useEffect(() => {
+    Loading.standard();
+
+    fetch("http://localhost:8000/prestamos")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch loans");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPrestamos(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching loans:", error);
+      })
+      .finally(() => {
+        Loading.remove();
+      });
+  }, []);
+
+  const handleCreate = () => {
+    navigate(`/administrador/dashboard/prestamos/crear`);
   };
 
-  const Solicitudes = [
-    {
-      name: "Maria Jose",
-      avatar: "https://unavatar.io/@jessicacediel",
-      tipo: "Bronze",
-      valor: "2M",
-    },
-    {
-      name: "Julio perez",
-      avatar: "https://unavatar.io/@3gerardpique",
-      tipo: "Platino",
-      valor: "8M",
-    },
-  ];
+  const handleEditClick = (prestamoId) => {
+    navigate(`/administrador/dashboard/prestamos/editar/${prestamoId}`);
+  };
 
-  let resultsSolicitud = []
+  const handleDeleteClick = (prestamoId) => {
+    Confirm.show(
+      "Eliminar Préstamo",
+      "¿Está seguro de que desea eliminar este préstamo?",
+      "Sí",
+      "Cancelar",
+      () => {
+        fetch(`http://localhost:8000/prestamos/${prestamoId}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to delete loan");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            Notify.success("Prestamo eliminado");
+            console.log("Loan deleted successfully:", data);
+            fetchPrestamos();
+          })
+          .catch((error) => {
+            Notify.failure("Error al eliminar");
+            console.error("Error deleting loan:", error);
+          });
+      },
+      () => {
+        console.log("Cancelado");
+      }
+    );
+  };
 
-  resultsSolicitud = Solicitudes.filter((dato) => {
-    if (searchSolicitud.length > 1) {
-      return dato.name
-      .toLowerCase()
-      .includes(searchSolicitud.toLowerCase());
-      
-    }else{
-      return resultsSolicitud = Solicitudes
-    }
-  })
+  const fetchPrestamos = () => {
+    Loading.standard();
+    fetch("http://localhost:8000/prestamos")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch loans");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPrestamos(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching loans:", error);
+      })
+      .finally(() => {
+        Loading.remove();
+      });
+  };
+
+  const prestamosPendientes = prestamos.filter(
+    (prestamo) => prestamo.descripcion_estadoPrestamo === "Pendiente"
+  );
 
   return (
-    <div className="adminContent">
-      <div className="AdminContent-home-peticiones">
-        <div className="HeaderAdmin">{<HeaderAdmin onSearchChange={handleSearchSolicitudChange} />}</div>
-        <div className="AdminContent-main-peticiones">
-          <article className="CardInfo-peticiones">
-            <div className="Content-peticiones">
-              <div className="HeaderCardComponent-peticion">
-                <h1>Pendientes</h1>
-
-                <div className="Details-peticiones">
-                  <p>View Details</p>
-                  <FontAwesomeIcon icon={faCaretDown} />
-                </div>
-              </div>
-              <div className="cards-peticiones">
-                {resultsSolicitud.map((item, index) => (
-                  <div className="cardPeticion" key={index}>
-                    <>
-                      {
-                        <CardPeticion
-                          name={item.name}
-                          avatar={item.avatar}
-                          tipo={item.tipo}
-                          valor={item.valor}
-                        />
-                      }
-                    </>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </article>
-          {resultsSolicitud.length < 1 || searchSolicitud.length < 0? (
-          <span className="mensajeError">No hay conincidencias</span>
-        ) : (
-          ""
+    <div className="AdminContent-main">
+      <div className="RegistrosPrestamos">
+        <hr />
+        <table className="table mytable table-hover table-borderless">
+          <thead className="">
+            <tr>
+              <th>Cliente</th>
+              <th>Monto</th>
+              <th>Fecha Prestamo</th>
+              <th>Fecha Pago</th>
+              <th>Estado Pago</th>
+              <th>Tipo</th>
+              <th>Aceptar / Descartar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {prestamosPendientes.map((item, index) => (
+              <tr key={index}>
+                <td>{item.nombre_cliente + " " + item.apellido_cliente}</td>
+                <td>$ {item.monto}</td>
+                <td>{item.fechaprestamo}</td>
+                <td>{item.fechaestimadapago}</td>
+                <td className="estado">
+                  <p
+                    className={
+                      item.descripcion_estadoPrestamo === "Pendiente"
+                        ? "Pendiente"
+                        : item.descripcion_estadoPrestamo === "Al dia"
+                        ? "Al-dia"
+                        : item.descripcion_estadoPrestamo === "Retrazo"
+                        ? "Retrazo"
+                        : item.descripcion_estadoPrestamo === "Pagado"
+                        ? "Pagado"
+                        : item.descripcion_estadoPrestamo === "Mora"
+                        ? "Mora"
+                        : ""
+                    }
+                  >
+                    {item.descripcion_estadoPrestamo}
+                  </p>
+                </td>
+                <td>{item.descripcion_tipoprestamo}</td>
+                <td className="d-flex gap-2">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => handleEditClick(item.prestamoid)}
+                  >
+                    <FontAwesomeIcon className="icon" icon={faPenToSquare} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => handleDeleteClick(item.prestamoid)}
+                  >
+                    <FontAwesomeIcon className="icon" icon={faTrash} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {prestamosPendientes.length < 1 && (
+          <span className="mensajeError">No hay coincidencias</span>
         )}
-        </div>
       </div>
     </div>
   );

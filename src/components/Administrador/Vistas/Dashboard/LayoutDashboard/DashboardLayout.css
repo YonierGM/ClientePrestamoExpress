@@ -82,7 +82,6 @@ tbody tr td{
     background: #F0F2F5;
     transition: .3s all ease;
 }
-
 .Pendiente{
     color: rgb(255, 255, 255);
     background: gray;
@@ -92,9 +91,19 @@ tbody tr td{
     border-radius: 15px;
 }
 
-.Activo{
+
+.Al-dia{
     color: rgb(255, 255, 255);
-    background: #2eadd3;
+    background: #2eadd3 !important;
+    text-align: center;
+    width: auto;
+
+    border-radius: 15px;
+}
+
+.Retrazo{
+    color: rgb(255, 255, 255);
+    background: rgb(236, 199, 74);
     text-align: center;
     width: auto;
 
@@ -118,4 +127,3 @@ tbody tr td{
 
     border-radius: 15px;
 }
-

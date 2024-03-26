@@ -11,14 +11,14 @@ const BarraLateral = (Props) =>
 {
     return (<>
     <div className="d-flex flex-column justify-content-center align-items-center h-75">
-        <Link to='/usuario/solicitudprestamo' className="text-light selecccionBarra btn"> 
-                <img src={imgSolicitud} className="imgUsuario" /> Solicitud de Prestamo 
+        <Link to='/usuario/solicitudprestamo' className="text-light selecccionBarra btn d-flex "> 
+                <img src={imgSolicitud} className="imgUsuario" /> <p className="mt-2">Solicitud de Prestamo </p> 
         </Link >
-        <Link to = "/usuario/pagoprestamo"className="text-light selecccionBarra btn">
-                <img src={imgProducto} className="imgUsuario" /> Productos
+        <Link to = "/usuario/pagoprestamo"className="text-light selecccionBarra btn d-flex">
+                <img src={imgProducto} className="imgUsuario" /> <p className="mt-2">Forma de pago</p>
         </Link>
-        <Link to = '/usuario/historialPrestamos' className="text-light selecccionBarra btn" >
-                <img src={imgHistorial} className="imgUsuario" /> Historial
+        <Link to = '/usuario/historialPrestamos' className="text-light selecccionBarra btn d-flex" >
+                <img src={imgHistorial} className="imgUsuario" /> <p className="mt-2">Historial</p>
         </Link>
    </div>
     </>

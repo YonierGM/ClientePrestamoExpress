@@ -1,5 +1,6 @@
 .TituloResumen
 {
+    font-size: 46px;
     text-align: center;
     margin-top: 5%;
     margin-bottom: 100px;
@@ -10,7 +11,7 @@
     font-size: 25px;
 }
 
-.imagendefondo
+.bg-informacion
 {
-    background-image: url('../img/fondoUsuario.jpeg');
+    background-color: rgba(120, 162, 238, 0.63);
 }

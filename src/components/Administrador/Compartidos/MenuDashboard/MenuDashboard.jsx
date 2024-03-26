@@ -10,8 +10,8 @@ export const MenuDashboard = () => {
         <ul  className="ulDashboard"> 
           <li className="liDashboard">
             <Link className="enlaceDashboard" to="/administrador/dashboard/prestamos">Prestamos</Link>
-            <Link className="enlaceDashboard" to="/administrador/dashboard/prestamos">Clientes</Link>
-            <Link className="enlaceDashboard" to="/administrador/dashboard/home">Pagos</Link>
+            <Link className="enlaceDashboard" to="/administrador/dashboard/clientes">Clientes</Link>
+            <Link className="enlaceDashboard" to="/administrador/dashboard/usuarios">Usuarios</Link>
             </li>
         </ul>
       </nav>

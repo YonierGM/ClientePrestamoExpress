@@ -8,7 +8,7 @@ const Formulario = (Props) =>
 {
     //Peticiones Get
     const [roles, setRoles] = useState(null);
-    const urlroles = "http://127.0.0.1:8000/roles";
+    const urlroles = "http://127.0.0.1:8000/tiposprestamo";
     useEffect(() => {
         (async () => {
             try {
@@ -23,28 +23,32 @@ const Formulario = (Props) =>
     
     const guadardatosform = (data) =>
     {
-        const urldata ='http://127.0.0.1:8000/prestamo'
+        const urldata ='http://127.0.0.1:8000/prestamos'
         axios.post(urldata,data)
     }
 
     //Funciones
     const obtenerFechaActual = () => {
         const fechaActual = new Date();
-        const dia = String(fechaActual.getDate()).padStart(2, '0'); // Obtén el día y agrega un 0 si es necesario para que tenga dos dígitos
-        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtén el mes y agrega un 0 si es necesario para que tenga dos dígitos
-        const año = fechaActual.getFullYear(); // Obtiene el año (cuatro dígitos)
-    
-        return `${año}-${mes}-${dia}`;
+        const fechaFormateada = fechaActual.toISOString().split('T')[0]; // Extraer la parte de la fecha
+        return fechaFormateada;
     };
-
+    const obtenerFechaFinal = (meses) => {
+        const fechaActual = new Date();
+        fechaActual.setMonth(fechaActual.getMonth() + meses);
+        const fechaFormateada = fechaActual.toISOString().split('T')[0]; // Extraer la parte de la fecha
+        return fechaFormateada;
+    };
     const [formData, setFormData] = useState({
-        idcliente: Props.id,
-        tipoPrestamo: '',
-        monto: '',
-        cuotas: '',
-        valorcuota: '',
-        fechaPrestamo: obtenerFechaActual(),
-        fechaestimadapago: obtenerFechaActual()
+        prestamoid: 0,
+        fechaprestamo: obtenerFechaActual(),
+        fechaestimadapago: "2024-03-24",
+        monto: 0,
+        cuotas: 0,
+        valorcuota: 0,
+        clienteid: parseInt(Props.id),
+        estadoid: 1,
+        tipoprestamoid: 0
     })
     const seleccionadorOpciones = (e) => {
         const { id, value } = e.target;
@@ -54,7 +58,7 @@ const Formulario = (Props) =>
         setFormData(prevState => ({
             ...prevState,
             [id]: value, // Actualiza el valor de tipoPrestamo con el valor del select
-            tipoPrestamo: key // Además, podrías almacenar el valor de data-key en otro campo, si lo necesitas
+            tipoprestamoid: parseInt(key) // Además, podrías almacenar el valor de data-key en otro campo, si lo necesitas
         }));
     };
 
@@ -62,12 +66,15 @@ const Formulario = (Props) =>
         const { id, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [id]: value
+            [id]: parseInt(value)
         }));
     };
 
     const handleSubmit = async (e) => {
-        formData.valorcuota = formData.monto / formData.cuotas;
+       // e.preventDefault();
+        formData.valorcuota = Math.ceil(parseInt(formData.monto) / parseInt(formData.cuotas));
+        formData.fechaestimadapago = obtenerFechaFinal(parseInt(formData.cuotas))
+        delete formData.tipoPrestamo
         console.log(formData)
         guadardatosform(formData);
     };
@@ -76,22 +83,22 @@ const Formulario = (Props) =>
         return <p>Elementos</p>;
       }
     return(
-        <div className="m-4 d-flex justify-content-center row  ">
+    <div className="m-4 d-flex justify-content-center  row bg-info p-4 rounded h-75">
             <div className="col-6 ">
                 <h5>PrestamoExpress</h5>  
                 <h1> Solicita tu prestamo</h1>
                 <p><strong>Préstamos rápidos y confiables:</strong> <br/> solicita ahora y obtén el dinero que necesitas sin complicaciones.</p>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center mt-4"> 
                     <img src={telefono}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> 000-000-0000</p>
+                    <p className="PerfilNombre "> 000-000-0000</p>
                 </div>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center  mt-3"> 
                     <img src={email}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> PrestamoExpress@pexpress.com</p>
+                    <p className="PerfilNombre "> PrestamoExpress@pexpress.com</p>
                 </div>
-                <div className="d-flex  align-items-center"> 
+                <div className="d-flex  align-items-center  mt-3"> 
                     <img src={ubicacion}  className="iconosUsuario border rounded-circle bg-warning" />
-                    <p className="PerfilNombre mt-3"> Colombia</p>
+                    <p className="PerfilNombre "> Colombia</p>
                 </div>
             </div>
         
@@ -100,13 +107,13 @@ const Formulario = (Props) =>
                 <label htmlFor="tipoPrestamo" className="form-label text-light">Tipos de Préstamos</label>
                 <select id="tipoPrestamo" className="form-select" aria-label="Default select example" onChange={seleccionadorOpciones} >
                     {
-                        roles['Roles'].map((item, index) => (
+                        roles.map((item, index) => (
                             <option key={item.tipoprestamoid} data-key={item.tipoprestamoid}>{item.descripcion}</option>
                         ))
                     }
                 </select>
                 <label htmlFor="monto" className="form-label text-light">Ingrese la cantidad del préstamo</label>
-                <input type="number" className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
+                <input type="number" min={0} className="form-control" id="monto" onChange={CambioTexto} value={formData.monto}></input>
                 <label htmlFor="cuotas" className="form-label text-light">Ingrese a cuantas cuotas lo vas a pagar</label>
                 <input type="number" min={0} max={12} className="form-control" id="cuotas" onChange={CambioTexto} value={formData.cuotas}></input>
                 <button className="mt-4 btn btn-info">Enviar Solicitud</button>

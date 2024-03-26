@@ -1,16 +1,12 @@
+// AdminLayout.js
 import React from "react";
 import "./AdminLayout.css";
-
-import { Routes, Route, NavLink } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 import MenuLateralAdmin from "../Compartidos/MenuLateralAdmin/MenuLateralAdmin";
-
 import PrestamosAdministrador from "../Vistas/PrestamosAdmin/PrestamosAdministrador";
-import DashboardAdmin from "../Vistas/Dashboard/DashboardAdmin";
 import Solicitudes from "../Vistas/Solicitudes/Solicitudes";
 import DatosAdmin from "../Vistas/DatosAdmmin/DatosAdmin";
 import DashboardLayout from "../Vistas/Dashboard/LayoutDashboard/DashboardLayout";
-import FormularioPrestamos from "../Vistas/Dashboard/Prestamos/FormularioPrestamos/FormularioPrestamos";
 
 export const AdminLayout = () => {
   return (
@@ -21,7 +17,7 @@ export const AdminLayout = () => {
       <div className="component">
         <Routes>
           <Route path="/solicitudes" element={<Solicitudes />} />
-          <Route path="/prestamos" element={<PrestamosAdministrador />} />
+          <Route path="/resumen" element={<PrestamosAdministrador />} />
           <Route path="/dashboard/*" element={<DashboardLayout />} />
           <Route path="/perfil" element={<DatosAdmin />} />
         </Routes>

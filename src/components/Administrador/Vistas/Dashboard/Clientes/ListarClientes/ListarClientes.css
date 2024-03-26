@@ -1,4 +1,4 @@
-.AdminContent-main{
+/* .AdminContent-main{
     padding: 30px 30px;
     width: 100%;
     display: flex;
@@ -12,7 +12,7 @@
     padding: 10px;
     border-radius: 15px;
     overflow: hidden;   
-    background: #F0F2F5;  /*   --bs-table-bg: */
+    background: #F0F2F5;
 }
 
 .registros h1{
@@ -32,12 +32,6 @@ tbody tr td{
     text-align: left;
 } 
 
-.search{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 50px;
-}
 .search button{
     width: 60px;
     background: #3E4C9F;
@@ -119,3 +113,6 @@ tbody tr td{
     border-radius: 15px;
 }
 
+.Create{
+    width: 90px !important;
+} */

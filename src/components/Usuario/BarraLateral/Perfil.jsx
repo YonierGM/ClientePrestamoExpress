@@ -8,7 +8,7 @@ const Perfil = (Props) =>
     return(
         <Link to='/usuario/' className="text-light d-flex  align-items-center selecccionBarra btn"> 
             <img src={imgPerfil} className="imgPerfil" />
-            <p className="PerfilNombre mt-3">{Props.name}</p>
+            <p className="PerfilNombre">{Props.name}</p>
         </Link>
     )
 }
