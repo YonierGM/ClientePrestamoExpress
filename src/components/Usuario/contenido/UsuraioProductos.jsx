@@ -70,7 +70,7 @@ const Productos = (Props) => {
         if(deudafaltante <= 0)
         {
             const urlPrestamoCambio = "http://127.0.0.1:8000/prestamos/" + prestamoActivo.prestamoid
-            prestamoActivo.estadoid = 2
+            prestamoActivo.estadoid = 5
             await axios.put(urlPrestamoCambio,prestamoActivo)
             window.location.reload();
         }
