@@ -73,13 +73,14 @@ const IniciarSesion = () => {
 
       console.log(response);
       if (data.rolid === 1) {
+        console.log(data)
         Loading.remove();
         Notify.success('Bienvenido');
         navigate(`/usuario/`);
       } else if (data.rolid === 2) {
         Loading.remove();
         Notify.success('Bienvenido Administrador');
-        navigate("/administrador/dashboard/prestamos");
+        navigate("/administrador/dashboard");
       }
     } else if (response.status === 401) {
         Loading.remove();

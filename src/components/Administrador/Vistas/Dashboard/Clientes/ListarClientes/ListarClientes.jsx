@@ -145,14 +145,14 @@ export const ListarClientes = () => {
                 <td className="d-flex gap-2">
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn"
                     onClick={() => handleEditClick(item.clienteid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} />
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn"
                     onClick={() => handleDeleteClick(item.clienteid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faTrash} />
