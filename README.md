@@ -1,4 +1,4 @@
-# Sistema Gestion de prestamos PrestamoExpress
+# Sistema Gestión de prestamos PrestamoExpress
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
