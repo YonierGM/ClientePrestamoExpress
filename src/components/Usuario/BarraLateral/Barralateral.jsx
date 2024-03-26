@@ -9,15 +9,18 @@ import { Button } from "bootstrap";
 
 const BarraLateral = (Props) =>
 {
+        let urlusuarioPrestamo = '/usuario/'+Props.id+'/solicitudprestamo'
+        let urlpagoPrestamos = '/usuario/'+Props.id+'/pagoprestamo'
+        let urlhitorialusuario = '/usuario/'+Props.id+'/historialPrestamos'
     return (<>
     <div className="d-flex flex-column justify-content-center align-items-center h-75">
-        <Link to='/usuario/solicitudprestamo' className="text-light selecccionBarra btn d-flex "> 
+        <Link to={urlusuarioPrestamo} className="text-light selecccionBarra btn d-flex "> 
                 <img src={imgSolicitud} className="imgUsuario" /> <p className="mt-2">Solicitud de Prestamo </p> 
         </Link >
-        <Link to = "/usuario/pagoprestamo"className="text-light selecccionBarra btn d-flex">
+        <Link to = {urlpagoPrestamos}className="text-light selecccionBarra btn d-flex">
                 <img src={imgProducto} className="imgUsuario" /> <p className="mt-2">Forma de pago</p>
         </Link>
-        <Link to = '/usuario/historialPrestamos' className="text-light selecccionBarra btn d-flex" >
+        <Link to = {urlhitorialusuario} className="text-light selecccionBarra btn d-flex" >
                 <img src={imgHistorial} className="imgUsuario" /> <p className="mt-2">Historial</p>
         </Link>
    </div>

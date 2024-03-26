@@ -7,7 +7,7 @@ import "./css/HistorialUsuario.css";
 
 const Historial = (Props) => {
   const [prestamo, setPrestamo] = useState(null);
-  const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + '1';
+  const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
   const [roles, setRoles] = useState(null);
   const urlroles = "http://127.0.0.1:8000/tiposprestamo";
   console.log(Props.id)

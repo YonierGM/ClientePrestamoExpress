@@ -8,6 +8,7 @@ const SolicitudPrestamo = (Props) =>
     let deuda = null
     const [prestamo, setPrestamo] = useState(null);
     const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
+    console.log(urlprestamo)
     useEffect(() => {
       const fetchData = async () => {
         try {
