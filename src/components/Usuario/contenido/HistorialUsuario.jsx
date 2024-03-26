@@ -7,12 +7,14 @@ import "./css/HistorialUsuario.css";
 
 const Historial = (Props) => {
   const [prestamo, setPrestamo] = useState(null);
-  const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
+  const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + '1';
   const [roles, setRoles] = useState(null);
   const urlroles = "http://127.0.0.1:8000/tiposprestamo";
+  console.log(Props.id)
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const responsePrestamo = await axios.get(urlprestamo);
         setPrestamo(responsePrestamo.data);
         const response = await axios.get(urlroles);

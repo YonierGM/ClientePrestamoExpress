@@ -17,11 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
-<<<<<<< HEAD
     "notiflix": "^3.2.7",
-=======
-    "bootstrap-icons": "^1.11.3",
->>>>>>> 548d79199d88ea1819e2fd0b3e86a1a72ee6b182
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",

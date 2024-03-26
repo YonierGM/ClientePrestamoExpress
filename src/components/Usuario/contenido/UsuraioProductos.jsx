@@ -49,8 +49,10 @@ const Productos = (Props) => {
 
     async function RevisarDeuda()
     {
+        
         const urlPago = 'http://127.0.0.1:8000/prestamopago/' + parseInt(prestamoActivo.prestamoid)
         const facturas = await axios.get(urlPago)
+        console.log(facturas.status)
         if(facturas.status == 200)
         {
             let sumarmonto = 0
@@ -61,8 +63,10 @@ const Productos = (Props) => {
             setDeudaFaltante(prestamoActivo.monto - sumarmonto)
             
         }
-        console.log(deudafaltante)
-        console.log(prestamoActivo)
+        else
+        {
+            setDeudaFaltante(prestamoActivo.monto)
+        }
         if(deudafaltante <= 0)
         {
             const urlPrestamoCambio = "http://127.0.0.1:8000/prestamos/" + prestamoActivo.prestamoid
