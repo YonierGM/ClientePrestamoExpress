@@ -4,7 +4,7 @@ import './css/UsuarioResumen.css'
 import axios from "axios";
 const Resumen = (Props) => {
   const [data, setData] = useState(null);
-  const url = "http://127.0.0.1:8000/cliente/" + Props.id;
+  const url = "http://127.0.0.1:8000/clientes/" + Props.id;
   console.log(url);
   useEffect(() => {
     const fetchData = async () => {
