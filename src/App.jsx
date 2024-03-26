@@ -6,6 +6,7 @@ import Home from './components/PagInicio/Home';
 import Login from './components/Usuario/Login'
 import './App.css'
 import AdminLayout from './components/Administrador/AdminLayout/AdminLayout';
+import IniciarSesion from './components/PagInicio/Header/IniciarSesion/IniciarSesion';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
     <div>
       <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path='/IniciarSesion' element={<Login/>}></Route>
+          <Route path='/IniciarSesion' element={<IniciarSesion/>}></Route>
           <Route path="/usuario/*" element={<InicioUsuario id='1'/>} />
           <Route path="/administrador/*" element={<AdminLayout/>} />
         </Routes>
