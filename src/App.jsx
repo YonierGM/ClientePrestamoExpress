@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path='/IniciarSesion' element={<IniciarSesion/>}></Route> 
           <Route path='/Registrar' element={<Registrar/>}></Route> 
-          <Route path="/usuario/:usuarioid/*" element={<InicioUsuario id='1'/>} />
+          <Route path="/usuario/:usuarioid/*" element={<InicioUsuario />} />
           <Route path="/administrador/*" element={<AdminLayout/>} />
         </Routes>
     </div>

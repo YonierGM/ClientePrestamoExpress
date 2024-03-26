@@ -52,11 +52,11 @@ const InicioUsuario = (Props) => {
           <div className={`offcanvas offcanvas-start ${showOffcanvas ? "show" : ""}`} tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" onMouseLeave={handleToggleOffcanvas}>
             <div className="offcanvas-header bg-primary">
               <h5 className="offcanvas-title " id="staticBackdropLabel">
-                <Perfil name="Perfil"/>
+                <Perfil id={usuarioid} name="Perfil"/>
               </h5>
             </div>
             <div className="offcanvas-body bg-primary">
-              <div><BarraLateral/></div>
+              <div><BarraLateral id ={usuarioid}/></div>
             </div>
           </div>
         </div>
