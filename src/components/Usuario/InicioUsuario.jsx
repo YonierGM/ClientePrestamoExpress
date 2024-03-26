@@ -1,5 +1,5 @@
 import React, { useState }   from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 
 //Comoponentes
 import Resumen from "./contenido/UsuarioResumen";
@@ -20,7 +20,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Productos from "./contenido/UsuraioProductos";
 
 const InicioUsuario = (Props) => {
-
+    let {usuarioid} = useParams();
+    console.log(usuarioid)
     const [showOffcanvas, setShowOffcanvas] = useState(false);
   
     const handleToggleOffcanvas = (e) => {
@@ -61,10 +62,10 @@ const InicioUsuario = (Props) => {
         </div>
         <div className="col-11 justify-content-center">
           <Routes>
-            <Route path="/" element={<Resumen  id={Props.id}/>} />
-            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={Props.id}/>}/>
-            <Route path='/pagoprestamo' element={<Productos id={Props.id}/>}/>
-            <Route path='/historialPrestamos' element={<Historial id={Props.id}/>}/>
+            <Route path="/" element={<Resumen  id={usuarioid}/>} />
+            <Route path="/solicitudprestamo" element = {<SolicitudPrestamo id={usuarioid}/>}/>
+            <Route path='/pagoprestamo' element={<Productos id={usuarioid}/>}/>
+            <Route path='/historialPrestamos' element={<Historial id={usuarioid}/>}/>
           </Routes>
         </div>
       </div>

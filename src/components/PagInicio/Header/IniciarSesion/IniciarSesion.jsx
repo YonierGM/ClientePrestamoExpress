@@ -76,7 +76,7 @@ const IniciarSesion = () => {
         console.log(data)
         Loading.remove();
         Notify.success('Bienvenido');
-        navigate(`/usuario/`);
+        navigate(`/usuario/${data.usuarioid}`);
       } else if (data.rolid === 2) {
         Loading.remove();
         Notify.success('Bienvenido Administrador');
