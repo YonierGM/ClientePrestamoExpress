@@ -31,12 +31,12 @@ const Historial = (Props) => {
   }
   function Estadoprestamo(numero)
   {
-    return numero == 1 ? "Activo" : (numero == 2 ? "Pagado" : "Mora")
+    return numero == 1 ? "Activo" : (numero == 3 ? "Pagado" : "Mora")
   }
   function EstadoprestamoEstilo(numero)
   {
     let estiloconstante = "text-center text-white border border-success rounded-pill"
-    return numero == 1 ? "bg-primary " + estiloconstante : (numero == 2 ? "bg-success " + estiloconstante : " bg-Warning " + estiloconstante)
+    return numero == 1 ? "bg-primary " + estiloconstante : (numero == 3 ? "bg-success " + estiloconstante : " bg-Warning " + estiloconstante)
   }
   function Roles(rol)
   {
