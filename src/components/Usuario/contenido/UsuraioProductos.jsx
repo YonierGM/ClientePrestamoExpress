@@ -15,7 +15,7 @@ const Productos = (Props) => {
     const [deudafaltante, setDeudaFaltante] = useState(80)
     const [prestamo, setPrestamo] = useState(null);
     
-    const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + Props.id;
+    const urlprestamo = "http://127.0.0.1:8000/prestamoscliente/" + parseInt(Props.id);
     let botonPago = false
     useEffect(() => {
         const fetchData = async () => {
