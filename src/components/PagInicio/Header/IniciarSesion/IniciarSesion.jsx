@@ -80,7 +80,7 @@ const IniciarSesion = () => {
       } else if (data.rolid === 2) {
         Loading.remove();
         Notify.success('Bienvenido Administrador');
-        navigate("/administrador/dashboard");
+        navigate("/administrador/dashboard/prestamos");
       }
     } else if (response.status === 401) {
         Loading.remove();
