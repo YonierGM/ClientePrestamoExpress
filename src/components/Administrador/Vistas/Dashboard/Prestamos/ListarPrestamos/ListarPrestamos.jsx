@@ -105,7 +105,7 @@ export const ListarPrestamos = () => {
   return (
     <div className="AdminContent-main">
       <div className="RegistrosPrestamos">
-        <div className="HeaderTable d-flex justify-content-between">
+        <div className="HeaderTable d-flex justify-content-between mb-2">
 
           <button className="Create btn btn-success" onClick={() => handleCreate()}>
             <FontAwesomeIcon className="icon" icon={faPlus} /> Nuevo prestamo
@@ -161,14 +161,14 @@ export const ListarPrestamos = () => {
                 <td className="d-flex gap-2">
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn "
                     onClick={() => handleEditClick(item.prestamoid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} />
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn"
                     onClick={() => handleDeleteClick(item.prestamoid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faTrash} />

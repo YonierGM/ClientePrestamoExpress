@@ -105,7 +105,9 @@ export const Solicitudes = () => {
   );
 
   return (
+    
     <div className="AdminContent-main">
+      <h1 className="h1">Solicitudes</h1>
       <div className="RegistrosPrestamos">
         <hr />
         <table className="table mytable table-hover table-borderless">
@@ -150,14 +152,14 @@ export const Solicitudes = () => {
                 <td className="d-flex gap-2">
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn"
                     onClick={() => handleEditClick(item.prestamoid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} />
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn"
                     onClick={() => handleDeleteClick(item.prestamoid)}
                   >
                     <FontAwesomeIcon className="icon" icon={faTrash} />

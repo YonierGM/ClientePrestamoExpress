@@ -55,7 +55,7 @@ const PrestamosAdministrador = () => {
         {/* {<HeaderAdmin />} */}
       </div>
       <div>
-        <h1>Resumen prestamos</h1>
+        <h1 className="h1">Resumen prestamos</h1>
       </div>
 
       <article className="CardInfo d-flex justify-content-between gap-2 flex-wrap-wrap">

@@ -107,7 +107,7 @@ export const ListarUsuarios = () => {
   return (
     <div className="AdminContent-main">
       <div className="RegistrosPrestamos">
-        <div className="HeaderTable d-flex justify-content-between">
+        <div className="HeaderTable d-flex justify-content-between mb-2">
           <button
             className="Create btn btn-success"
             onClick={() => handleCreate()}
