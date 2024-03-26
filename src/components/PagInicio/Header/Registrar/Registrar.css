@@ -15,8 +15,8 @@
     }
 }
 
-.textInf:hover {
-    color: blue;
+button:hover {
+    background-color: #131b5a;
 }
 
 .registro{

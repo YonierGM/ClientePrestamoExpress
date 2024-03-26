@@ -20,12 +20,15 @@ const Registrar = () => {
   const [rolid, setRolid] = useState(1);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [username , setUsername] = useState("");
+  const [passw , setPassw] = useState("");
   const [documento, setDocumento] = useState("");
   const [fecha_nac, setFecha_nac] = useState("");
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
   const [clienteid, setClienteid] = useState(0);
+  const [usuarioid, setUsuarioid] = useState(0);
 
   const dataNew = {
     rolid,
@@ -38,6 +41,13 @@ const Registrar = () => {
     email,
     clienteid,
   };
+
+  const usuarioNew ={
+    usuarioid,
+    rolid,
+    username,
+    passw,
+  }
 
   useEffect(() => {
     fetchCliente();
@@ -96,17 +106,25 @@ const Registrar = () => {
     e.preventDefault();
     Notiflix.Loading.standard();
     try {
-      const url = clienteId
+      const urlClientes = clienteId
         ? `http://localhost:8000/clientes/${clienteId}`
         : "http://localhost:8000/clientes"; // URL diferente para creación y edición
+      const urlUsuarios = "http://localhost:8000/usuarios"
       const method = clienteId ? "PUT" : "POST"; // Método diferente para creación y edición
-      const response = await fetch(url, {
+      const response = await fetch(urlClientes, {
         method: method,
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(dataNew),
-      });
+
+      }).then(await fetch(urlUsuarios, {
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuarioNew)
+      }));
       if (!response.ok) {
         throw new Error("Failed to submit the form");
       }
@@ -148,13 +166,13 @@ const Registrar = () => {
             <div className="col-md-6">
               <label htmlFor="text">Nombre</label>
               <input
-                type="text"
-                className="form-control"
-                id="nombre"
-                name="nombre"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                placeholder="Ingrese el nombre" required
+                  type="text"
+                  className="form-control"
+                  id="nombre"
+                  name="nombre"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  placeholder="Ingrese el nombre" required
               />
             </div>
             <div className="col-md-6">
@@ -167,8 +185,31 @@ const Registrar = () => {
                   value={apellido}
                   onChange={(e) => setApellido(e.target.value)}
                   placeholder="Ingrese el apellido" required
-                />
-
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="text">Usuario</label>
+              <input
+                  type="text"
+                  className="form-control"
+                  id="usuario"
+                  name="usuario"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Ingrese un usuario" required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="text">Contraseña</label>
+              <input
+                  type="text"
+                  className="form-control"
+                  id="contrasena"
+                  name="contrasena"
+                  value={passw}
+                  onChange={(e) => setPassw(e.target.value)}
+                  placeholder="Ingrese una contraseña" required
+              />
             </div>
             <div className="col-md-6">
               <label htmlFor="text">C.C:</label>
@@ -180,11 +221,11 @@ const Registrar = () => {
                   value={documento}
                   onChange={(e) => setDocumento(e.target.value)}
                   placeholder="Número de documento" required
-                />
+              />
             </div>
             <div className="col-md-6">
-            <label htmlFor="fecha_nac">fecha nacimiento</label>
-                <input
+              <label htmlFor="fecha_nac">fecha nacimiento</label>
+              <input
                   type="date"
                   className="form-control"
                   id="fecha_nac"
@@ -192,11 +233,11 @@ const Registrar = () => {
                   value={fecha_nac}
                   onChange={(e) => setFecha_nac(e.target.value)}
                   required
-                />
+              />
             </div>
             <div className="col-md-6">
-            <label htmlFor="direccion">Direccion</label>
-                <input
+              <label htmlFor="direccion">Direccion</label>
+              <input
                   type="text"
                   className="form-control"
                   id="direccion"
@@ -204,11 +245,11 @@ const Registrar = () => {
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
                   placeholder="Ingrese la dirección" required
-                />
+              />
             </div>
             <div className="col-md-6">
-            <label htmlFor="celular">celular</label>
-                <input
+              <label htmlFor="celular">celular</label>
+              <input
                   type="text"
                   className="form-control"
                   id="celular"
@@ -216,11 +257,11 @@ const Registrar = () => {
                   value={celular}
                   onChange={(e) => setCelular(e.target.value)}
                   placeholder="Número de celular" required
-                />
+              />
             </div>
             <div className="col-md-6">
-            <label htmlFor="email">email</label>
-                <input
+              <label htmlFor="email">email</label>
+              <input
                   type="email"
                   className="form-control"
                   id="email"
@@ -228,11 +269,11 @@ const Registrar = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Ingrese el email" required
-                />
+              />
             </div>
 
             <div className="d-flex justify-content-center mt-4">
-            <button type="submit" className="btn btn-primary">Guardar</button>
+              <button type="submit" className=" btn btn-primary bg-primary">Registrar</button>
             </div>
             <p className="text-end mt-4">
               ¿Ya tiene una cuenta? -
