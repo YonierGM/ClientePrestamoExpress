@@ -17,7 +17,6 @@ const Registrar = () => {
 
   const [clientes, setCliente] = useState([]);
 
-  const [rolid, setRolid] = useState(1);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [username , setUsername] = useState("");
@@ -27,11 +26,13 @@ const Registrar = () => {
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
+
+  const [rolid, setRolid] = useState(1);
   const [clienteid, setClienteid] = useState(0);
   const [usuarioid, setUsuarioid] = useState(0);
 
   const dataNew = {
-    rolid,
+    clienteid,
     nombre,
     apellido,
     documento,
@@ -39,15 +40,10 @@ const Registrar = () => {
     direccion,
     celular,
     email,
-    clienteid,
-  };
-
-  const usuarioNew ={
-    usuarioid,
-    rolid,
     username,
     passw,
-  }
+    rolid
+  };
 
   useEffect(() => {
     fetchCliente();
@@ -66,42 +62,6 @@ const Registrar = () => {
     }
   };
 
-  useEffect(() => {
-    if (clienteId) {
-      Notiflix.Loading.standard();
-      fetch(`http://localhost:8000/clientes/${clienteId}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch loan details");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setNombre(data.nombre);
-          setApellido(data.apellido);
-          setDocumento(data.documento);
-          setFecha_nac(data.fecha_nac);
-          setDireccion(data.direccion);
-          setCelular(data.celular);
-          setEmail(data.email);
-          setRolid(data.rolid);
-          setClienteid(data.clienteid);
-        })
-        .catch((error) => {
-          setError("Error fetching loan details:", error);
-        })
-        .finally(() => {
-          Notiflix.Loading.remove();
-        })
-        .catch((error) => {
-          setError("Error fetching loan details:", error);
-        })
-        .finally(() => {
-          Notiflix.Loading.remove();
-        });
-    }
-  }, [clienteId]);
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     Notiflix.Loading.standard();
@@ -109,7 +69,6 @@ const Registrar = () => {
       const urlClientes = clienteId
         ? `http://localhost:8000/clientes/${clienteId}`
         : "http://localhost:8000/clientes"; // URL diferente para creación y edición
-      const urlUsuarios = "http://localhost:8000/usuarios"
       const method = clienteId ? "PUT" : "POST"; // Método diferente para creación y edición
       const response = await fetch(urlClientes, {
         method: method,
@@ -118,13 +77,7 @@ const Registrar = () => {
         },
         body: JSON.stringify(dataNew),
 
-      }).then(await fetch(urlUsuarios, {
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(usuarioNew)
-      }));
+      })
       if (!response.ok) {
         throw new Error("Failed to submit the form");
       }
@@ -188,30 +141,6 @@ const Registrar = () => {
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="text">Usuario</label>
-              <input
-                  type="text"
-                  className="form-control"
-                  id="usuario"
-                  name="usuario"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Ingrese un usuario" required
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="text">Contraseña</label>
-              <input
-                  type="text"
-                  className="form-control"
-                  id="contrasena"
-                  name="contrasena"
-                  value={passw}
-                  onChange={(e) => setPassw(e.target.value)}
-                  placeholder="Ingrese una contraseña" required
-              />
-            </div>
-            <div className="col-md-6">
               <label htmlFor="text">C.C:</label>
               <input
                   type="number"
@@ -269,6 +198,29 @@ const Registrar = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Ingrese el email" required
+              />
+            </div>
+
+            <div className="col-md-12">
+            <label htmlFor="text">Username</label>
+              <input
+                  type="text"
+                  className="form-control col-md-6"
+                  id="usuario"
+                  name="usuario"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Ingrese un usuario" required
+              />
+              <label htmlFor="text">Contraseña</label>
+              <input
+                  type="text"
+                  className="form-control col-md-6"
+                  id="contrasena"
+                  name="contrasena"
+                  value={passw}
+                  onChange={(e) => setPassw(e.target.value)}
+                  placeholder="Ingrese una contraseña" required
               />
             </div>
 

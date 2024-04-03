@@ -122,6 +122,7 @@ export const FormularioPrestamos = () => {
           return response.json();
         })
         .then((data) => {
+          
           console.log(data)
           
           setFechaprestamo(data.fechaprestamo);
@@ -195,6 +196,23 @@ export const FormularioPrestamos = () => {
     );
   };
 
+  const handleFechaEstimadaPagoChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const currentDate = new Date();
+    
+    if (selectedDate <= currentDate) {
+      // La fecha seleccionada es anterior o igual a la fecha actual
+      // Aquí puedes mostrar un mensaje de error o realizar alguna acción apropiada
+      // Por ejemplo, deshabilitar el botón de guardar o mostrar un mensaje al usuario
+      console.log("La fecha estimada de pago debe ser posterior al día actual");
+      Notify.failure("La fecha estimada de pago debe ser posterior al día actual");
+      return;
+    }
+    
+    // La fecha seleccionada es posterior a la fecha actual, puedes actualizar el estado
+    setFechaestimadapago(e.target.value);
+  };
+
   return (
     <div className="DatosAdminContent">
       <div className="HomeDatosAdmin">
@@ -223,7 +241,7 @@ export const FormularioPrestamos = () => {
                   id="fechaestimadapago"
                   name="fechaestimadapago"
                   value={fechaestimadapago}
-                  onChange={(e) => setFechaestimadapago(e.target.value)}
+                  onChange={handleFechaEstimadaPagoChange}
                   required
                 />
               </div>

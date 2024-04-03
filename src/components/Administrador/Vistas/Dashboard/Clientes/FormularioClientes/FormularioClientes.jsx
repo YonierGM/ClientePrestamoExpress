@@ -23,6 +23,8 @@ export const FormularioClientes = () => {
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [passw, setPassw] = useState("");
   const [clienteid, setClienteid] = useState(0);
 
   const dataNew = {
@@ -34,6 +36,8 @@ export const FormularioClientes = () => {
     direccion,
     celular,
     email,
+    username,
+    passw,
     clienteid
   }
 
@@ -72,6 +76,8 @@ export const FormularioClientes = () => {
           setDireccion(data.direccion);
           setCelular(data.celular);
           setEmail(data.email);
+          setUsername(data.username);
+          setPassw(data.passw);
           setRolid(data.rolid);
           setClienteid(data.clienteid);
         })
@@ -223,6 +229,30 @@ export const FormularioClientes = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="username">username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="passw">Contraseña</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="passw"
+                  name="passw"
+                  value={passw}
+                  onChange={(e) => setPassw(e.target.value)}
                   required
                 />
               </div>

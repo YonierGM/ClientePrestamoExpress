@@ -167,13 +167,13 @@ export const ListarPrestamos = () => {
                     >
                       <FontAwesomeIcon className="icon" icon={faPenToSquare} />
                     </button>
-                    <button
+                    {/* <button
                       type="button"
                       className="btn"
                       onClick={() => handleDeleteClick(item.prestamoid)}
                     >
                       <FontAwesomeIcon className="icon" icon={faTrash} />
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}

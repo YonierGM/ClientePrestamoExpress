@@ -66,9 +66,17 @@ export const ListarClientes = () => {
             return response.json();
           })
           .then((data) => {
-            Notify.success("Cliente eliminado");
-            console.log("Loan deleted successfully:", data);
-            fetchClientes();
+            if(data.status_code == 406){
+              Notify.failure(data.detail);
+              console.log(data.detail);
+              fetchClientes();
+
+            }else{
+
+              Notify.success("Cliente eliminado");
+              console.log("Loan deleted successfully:", data);
+              fetchClientes();
+            }
           })
           .catch((error) => {
             Notify.failure("Error al eliminar");

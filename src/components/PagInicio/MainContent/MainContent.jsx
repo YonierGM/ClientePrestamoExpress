@@ -1,6 +1,7 @@
 import React from "react";
 import CardMain from "./CardMain/CardMain";
 
+import './MainContent.css'
 
 const MainContent = () => {
   return (

@@ -38,7 +38,7 @@ export const MenuLateralAdmin = () => {
           {/* <li><FontAwesomeIcon className="icon" icon={faBell} /><a>Notificaciones</a></li> */}
           <li>
             <FontAwesomeIcon className="icon" icon={faRightFromBracket} />
-            <Link to="/administrador/dashboard/prestamos">Logout</Link>
+            <Link to="/IniciarSesion">Logout</Link>
           </li>
         </ul>
       </nav>

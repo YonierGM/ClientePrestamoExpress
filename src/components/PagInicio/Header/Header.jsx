@@ -23,15 +23,12 @@ const Header = () => {
                             </Nav.Link>
                             <Nav.Link ><p className="text-white">
                                 </p></Nav.Link>
-                            <Nav.Link href="#prestamos" style={{color: 'white'}}>
-                                Préstamos
-                            </Nav.Link>
                             <Nav.Link ><p className="text-white"></p></Nav.Link>
                             <Nav.Link as={Link} to="/IniciarSesion" style={{color: 'white'}}>
                                 Iniciar sesión</Nav.Link>
                             <Nav.Link ><p className="text-white"></p></Nav.Link>
                             <Nav.Link as={Link} to="/Registrar" style={{color: 'white'}}>
-                                Registrarse
+                                Registrar Cliente
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

@@ -41,7 +41,7 @@ const SolicitudPrestamo = (Props) =>
    
         if(deuda)
         {
-            return(<Deudausuario/>)
+            return(<Deudausuario id={Props.id}/>)
         }else
         {
             return <Formulario id={Props.id}/>

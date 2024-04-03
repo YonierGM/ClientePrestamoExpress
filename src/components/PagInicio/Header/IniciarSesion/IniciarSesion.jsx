@@ -57,47 +57,48 @@ const IniciarSesion = () => {
     Loading.standard();
     e.preventDefault();
 
-    // Realizar la solicitud POST al endpoint de
-    console.log(dataNew);
-    const response = await fetch("http://localhost:8000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataNew),
-    });
+    if (rolid == 1) {
+      const response = await fetch(
+        `http://localhost:8000/login_cliente?username=${encodeURIComponent(
+          username
+        )}&passw=${encodeURIComponent(passw)}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        const id = data.clienteid;
 
-    if (response.ok) {
-      const data = await response.json();
-      setUsuario(data.usuarioid);
+        console.log(data);
 
-      console.log(response);
-      if (data.rolid === 1) {
-        console.log(data)
+        navigate(`/usuario/${id}`);
+
+        Notify.success("Bienvenido");
         Loading.remove();
-        Notify.success('Bienvenido');
-        navigate(`/usuario/${data.usuarioid}`);
-      } else if (data.rolid === 2) {
+     
+      } else {
         Loading.remove();
-        Notify.success('Bienvenido Administrador');
-        navigate("/administrador/dashboard/prestamos");
+        Notify.failure("Datos incorrectos");
+        console.log("Incorrect");
       }
-    } else if (response.status === 401) {
+    }else if(rolid == 2){
+      const response = await fetch(
+        `http://localhost:8000/login_admin?username=${encodeURIComponent(
+          username
+        )}&passw=${encodeURIComponent(passw)}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        navigate("/administrador/dashboard/prestamos");
+        Notify.success("Bienvenido");
         Loading.remove();
-        Notify.failure('Contaseña Incorrecta');
-      console.log("Incorrect password");
-    } else if (response.status === 403) {
+        
+      } else {
         Loading.remove();
-        Notify.failure('Elija un rol válido');
-      console.log("Incorrect role");
-    } else if (response.status === 404) {
-        Loading.remove();
-        Notify.failure('El usuario no existe');
-      console.log("User not found");
-    } else {
-        Loading.remove();
-      // Other errors
-      console.log("Error:", response.status);
+        Notify.failure("Datos incorrectos");
+        console.log("Incorrect");
+      }
+
     }
   };
 
@@ -143,7 +144,7 @@ const IniciarSesion = () => {
                 required
                 className="form-control"
               >
-                <option value="">Tipo del prestamo</option>
+                <option value="">Rol</option>
                 {roles.map((rol) => (
                   <option key={rol.rolid} value={rol.rolid}>
                     {rol.rolid} - {rol.descripcion}

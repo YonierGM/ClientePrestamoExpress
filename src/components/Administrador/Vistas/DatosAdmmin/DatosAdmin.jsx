@@ -4,13 +4,18 @@ import "./DatosAdmin.css";
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { useNavigate } from "react-router-dom";
 
 export const DatosAdmin = () => {
+  const navigate = useNavigate();
+
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [documento, setDocumento] = useState("");
   const [email, setEmail] = useState("");
   const [celular, setCelular] = useState("");
+  const [username, setUsername] = useState("");
+  const [passw, setPassw] = useState("");
   const [administradorid, setAdministradorid] = useState(0);
   const [rolid, setRolid] = useState(2);
 
@@ -61,6 +66,8 @@ export const DatosAdmin = () => {
       documento,
       email,
       celular,
+      username,
+      passw,
       rolid
     };
 
@@ -79,6 +86,7 @@ export const DatosAdmin = () => {
       }
       Loading.remove();
       Notify.success('Administrador creado exitosamente');
+      navigate(`/administrador/dashboard/clientes`);
     } catch (error) {
       Loading.remove();
       console.error('Error al crear administrador:', error);
@@ -133,6 +141,26 @@ export const DatosAdmin = () => {
                 placeholder="Ingrese el celular"
                 required
               />
+
+                <input
+                  type="text"
+                  name="username"
+                  value={username}
+                  placeholder="Username"
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+             
+                <input
+                  type="password"
+                  id="passw"
+                  name="passw"
+                  value={passw}
+                  onChange={(e) => setPassw(e.target.value)}
+                  placeholder="Ingrese contraseña"
+                  required
+                />
+            
             </div>
             <div className="buttom">
               <button className="save" type="submit">Save</button>
